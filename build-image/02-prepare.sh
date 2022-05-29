@@ -51,12 +51,26 @@ sudo mount ${DEVICE}2 ${ROOT_DIR}
 _log "=> Création des dossiers"
 mkdir -p ${ROOT_DIR}${SHARE_DIR}
 mkdir -p ${ROOT_DIR}${SCRIPT_DIR}
+mkdir -p ${ROOT_DIR}${SCRIPT_DIR}/out
 rsync -av --progress * ${ROOT_DIR}${SCRIPT_DIR} --exclude out --exclude old
 
 _log "  => Application des droits"
 chmod +x ${ROOT_DIR}${HOME_DIR}/scripts/*
 chmod +x ${ROOT_DIR}${SCRIPT_DIR}/modules/*
 chmod +x ${ROOT_DIR}${SCRIPT_DIR}/build-image/*
+
+
+# Date et heure
+_log "=> Passage du RPI en Français"
+_log "  => Timezone"
+sudo cp -f conf/etc/timezone ${ROOT_DIR}/etc/timezone
+sudo rm ${ROOT_DIR}/etc/localtime
+sudo ln -s /usr/share/zoneinfo/Europe/Paris ${ROOT_DIR}/etc/localtime
+_log "  => Clavier"
+sudo cp -f conf/etc/default/keyboard ${ROOT_DIR}/etc/default/keyboard
+sudo cp -f conf/etc/locale.gen ${ROOT_DIR}/etc/locale.gen
+
+
 
 # Boot config
 _log "=> Boot config"
@@ -78,13 +92,6 @@ _log "  => ADXL"
 sudo sed -i "s/#dtparam=spi=on/dtparam=spi=on/" out/config.txt
 sudo cp -f out/config.txt ${BOOT_DIR}/config.txt
 
-# Splashscreen
-_log "=> SplashScreen"
-mkdir -p ${ROOT_DIR}/etc/systemd/system/
-sudo cp conf/etc/systemd/system/splashscreen.service ${ROOT_DIR}/etc/systemd/system/splashscreen.service
-cp conf/share/splashscreen.png ${ROOT_DIR}${SHARE_DIR}/splashscreen.png
-
-
 # Wifi
 WIFI_CONF="conf/octopi-wpa-supplicant.txt"
 if [ -f ${WIFI_CONF} ]; then
@@ -95,41 +102,11 @@ else
 fi
 
 
-
-# Configuration du hostname
-read -p "Hostname [${HOSTNAME_DEFAULT}] : " HOSTNAME
-if [ "${HOSTNAME}" = "" ]; then
-	HOSTNAME=${HOSTNAME_DEFAULT}
-fi
-echo -ne "${CYAN}=> Change du nom du systeme : ${RED}${HOSTNAME}${NC}"
-echo "${HOSTNAME}" | sudo tee ${ROOT_DIR}/etc/hostname > /dev/null
-echo -e "${NC}"
-sudo cp -f conf/etc/hosts ${ROOT_DIR}/etc/hosts
-sudo sed -i "s/octopi/${HOSTNAME} octopi/" ${ROOT_DIR}/etc/hosts
-
-
-
-# Date et heure
-_log "=> Passage du RPI en Français"
-_log "  => Timezone"
-sudo cp -f conf/etc/timezone ${ROOT_DIR}/etc/timezone
-sudo rm ${ROOT_DIR}/etc/localtime
-sudo ln -s /usr/share/zoneinfo/Europe/Paris ${ROOT_DIR}/etc/localtime
-_log "  => Clavier"
-sudo cp -f conf/etc/default/keyboard ${ROOT_DIR}/etc/default/keyboard
-sudo cp -f conf/etc/locale.gen ${ROOT_DIR}/etc/locale.gen
-
-
-
 # Script d'update
 _log "=> Scripts"
 _log "  => Script pour les mises à jour"
 sudo cp -f conf/etc/sudoers.d/rpi-updater ${ROOT_DIR}/etc/sudoers.d/rpi-updater
 sudo chmod 440 ${ROOT_DIR}/etc/sudoers.d/rpi-updater
-
-# Crontab
-_log "  => Crontab"
-sudo cp -f conf/etc/cron.d/voron-cron ${ROOT_DIR}/etc/cron.d/voron-cron
 
 
 # Oh my ZSH
@@ -191,7 +168,7 @@ cp -f conf/klipper/klipper-macro.txt ${ROOT_DIR}${SHARE_DIR}/klipper-macro.txt
 cp -f conf/klipper/${KLIPPER_CONF_VERSION}.txt ${ROOT_DIR}${HOME_DIR}/printer.cfg
 cp -f conf/klipper/klipper-static_${KLIPPER_CONF_VERSION}.txt ${ROOT_DIR}${SHARE_DIR}/klipper-static.txt
 
-
+if [ 0 -ge 1 ]; then
 # Configuration octoprint de base
 _log "=> Configuration de l'API"
 API_KEY=$(head -c16 </dev/urandom|xxd -p -u)
@@ -219,14 +196,21 @@ _preconfig server.onlineCheck.host "185.121.177.177"
 _log "  => Désactivation des plugins inutiles"
 _preconfig plugins._disabled[0] errortracking "ErrorTracking"
 _preconfig plugins._disabled[1] cura "Cura"
+fi
+
 
 # Fin de la préparation
-_log "=> Fin de l'installation"
+_log "=> Fin de la préparation de la carte SD"
 echo ${VERSION_SCRIPT} > ${ROOT_DIR}${SCRIPT_DIR}/out/CURENT_VERSION
 read -p "Démontage des partitions [Y/n] ?" CONFIRM
 if [ "${CONFIRM}" != "n" ] && [ "${CONFIRM}" != "N" ]; then
+  echo "Etapes un peu longues..."
+  _log "  => Boot"
   sudo umount ${BOOT_DIR}
+  _log "  => Root"
   sudo umount ${ROOT_DIR}
+  _log "  => Synchro"
+  sudo sync
 fi
 
 exit 0

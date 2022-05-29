@@ -3,6 +3,7 @@ TODO
 
 * [ ] GPIO serveur
 * [ ] Restauration backup
+* [ ] Compte de backup
 * [ ] Update script :
     * [ ] Exécuter la màj :
 		* [ ] Copie des fichiers :

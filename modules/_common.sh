@@ -14,7 +14,7 @@ PI_PASSWORD_DEFAULT="raspberry"
 PI_PASSWORD=${PI_PASSWORD_DEFAULT}
 
 # Versions
-VERSION_SCRIPT=2022052902
+VERSION_SCRIPT=2022052903
 YQ_VERSION="3.4.0"		         # Version de Yaml parser
 KLIPPER_CONF_VERSION="20220423"  # Fichier de configuration klipper
 

@@ -17,6 +17,12 @@ elif [ `whoami` != 'pi' ]; then
   exit 2
 fi
 
+# Check dossier
+if [ ! -d conf ]; then
+  _log "${RED}Lancez ce script depuis ${SCRIPT_DIR}"
+  exit 2
+fi
+
 # Demande du mdp
 echo -ne "${CYAN}Votre mot de passe est necessaire pour l'installation : ${NC}"
 read -s PI_PASSWORD
@@ -38,6 +44,19 @@ echo -e "${PI_PASSWORD}\n${PI_PASSWORD}" | sudo passwd > /dev/null
 echo -e "${CYAN}Changement du mot de passe par défaut : OK${NC}"
 fi
 echo -e "\n${RED}/!\ NE VOUS CONNECTEZ PAS SUR OCTOPRINT AVANT LA FIN DE L'INSTALLATION !${NC}"
+
+
+# Configuration du hostname
+read -p "Hostname [${HOSTNAME_DEFAULT}] : " HOSTNAME
+if [ "${HOSTNAME}" = "" ]; then
+	HOSTNAME=${HOSTNAME_DEFAULT}
+fi
+echo -ne "${CYAN}=> Change du nom du systeme : ${RED}${HOSTNAME}${NC}"
+echo "${HOSTNAME}" | sudo tee /etc/hostname > /dev/null
+echo -e "${NC}"
+sudo cp -f conf/etc/hosts /etc/hosts
+sudo sed -i "s/octopi/${HOSTNAME} octopi/" /etc/hosts
+
 
 
 # Création d'un utilisateur octprint
@@ -70,6 +89,11 @@ sudo apt install -y tree zsh autojump fbi rsync
 sudo apt install -y --no-install-recommends nodejs npm
 
 
+# Crontab
+_log "  => Crontab"
+sudo cp -f ${SCRIPT_DIR}/conf/etc/cron.d/voron-cron /etc/cron.d/voron-cron
+
+
 # wiringPI
 _log "=> WiringPI"
 wget https://project-downloads.drogon.net/wiringpi-latest.deb -O /tmp/wiringpi.deb
@@ -93,6 +117,11 @@ sudo chsh -s /usr/bin/zsh $(whoami)
 echo mmc0 | sudo tee /sys/class/leds/led0/trigger > /dev/null # cpu0 (charge CPU) ou mmc0 (lecture carte SD)
 
 # Splashscreen
+_log "=> SplashScreen"
+mkdir -p /etc/systemd/system/
+sudo cp ${SCRIPT_DIR}/conf/etc/systemd/system/splashscreen.service /etc/systemd/system/splashscreen.service
+cp ${SCRIPT_DIR}/conf/share/splashscreen.png ${SHARE_DIR}/splashscreen.png
+
 sudo systemctl disable getty@tty3
 sudo systemctl enable splashscreen
 
