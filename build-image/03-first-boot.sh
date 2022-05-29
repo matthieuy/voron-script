@@ -73,9 +73,7 @@ sudo apt remove --purge -y -q bluez-firmware bluez libraspberrypi-doc
 _log "  => Dépôt"
 sudo apt update -q -y
 _log "  => Système"
-if [ ${DEVMODE} -eq 0 ]; then
-  sudo apt full-upgrade -y
-fi
+sudo apt full-upgrade -y
 
 # Génération du support clavier
 _log "=> Passage en français"
@@ -83,15 +81,18 @@ sudo locale-gen
 
 
 # Installation globale
+_log "=> Installation de paquets de base"
 sudo apt install -y tree zsh autojump fbi rsync
 
 # NPM (GPIO serveur)
+_log" => NodeJS"
 sudo apt install -y --no-install-recommends nodejs npm
 
 
 # Crontab
 _log "  => Crontab"
 sudo cp -f ${SCRIPT_DIR}/conf/etc/cron.d/voron-cron /etc/cron.d/voron-cron
+sudo chmod +x /etc/cron.d/voron-cron
 
 
 # wiringPI
@@ -111,7 +112,8 @@ sudo chsh -s /usr/bin/zsh $(whoami)
 
 
 # Klipper
-. ~/scripts/update-klipper.sh
+_log "=> Klipper"
+. ${SCRIPT_DIR}/scripts/update-klipper.sh
 
 # Led IDE
 echo mmc0 | sudo tee /sys/class/leds/led0/trigger > /dev/null # cpu0 (charge CPU) ou mmc0 (lecture carte SD)
@@ -126,10 +128,10 @@ sudo systemctl disable getty@tty3
 sudo systemctl enable splashscreen
 
 # OctoDash
-./modules/octodash.sh
+. ${SCRIPT_DIR}/modules/octodash.sh
 
 # ADXL
-./modules/adxl.sh
+. ${SCRIPT_DIR}/modules/adxl.sh
 
 _log "=> Fin de l'installation : Nettoyage"
 sudo apt autoremove -y

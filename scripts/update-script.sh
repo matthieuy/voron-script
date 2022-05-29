@@ -42,6 +42,9 @@ echo "  => Cron + sudoers"
 sudo cp -rf ${SCRIPT_DIR}/conf/etc/cron.d/* /etc/cron.d/
 sudo cp -rf ${SCRIPT_DIR}/conf/etc/sudoers.d/* /etc/sudoers.d/
 
+# Klipper
+echo "  => Configuration klipper"
+cp -f ${SCRIPT_DIR}/conf/klipper/makeconfig.txt ${KLIPPER_DIR}/.config
 
 # Fin
 echo ${VERSION_SCRIPT} > ${VERSION_FILE}
