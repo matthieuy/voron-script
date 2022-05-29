@@ -68,8 +68,7 @@ fi
 
 # Check script
 _log "=> MàJ github des scripts"
-git -C ${ROOT_DIR}${SCRIPT_DIR} branch --set-upstream-to=origin/main main
-git -C ${ROOT_DIR}${SCRIPT_DIR} pull origin main
+git -C ${SCRIPT_DIR} pull origin main
 
 
 # Couper octoprint
