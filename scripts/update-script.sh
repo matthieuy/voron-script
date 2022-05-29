@@ -38,9 +38,8 @@ echo "  => Scripts"
 cp -rf ${SCRIPT_DIR}/scripts/* ${HOME_DIR}/scripts/
 chmod +x ${HOME_DIR}/scripts/*
 
-# Cron + sudoers
-echo "  => Cron + sudoers"
-sudo cp -rf ${SCRIPT_DIR}/conf/etc/cron.d/* /etc/cron.d/
+# sudoers
+echo "  => Sudoers"
 sudo cp -rf ${SCRIPT_DIR}/conf/etc/sudoers.d/* /etc/sudoers.d/
 
 # Klipper

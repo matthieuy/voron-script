@@ -58,11 +58,6 @@ sudo cp -f conf/etc/hosts /etc/hosts
 sudo sed -i "s/octopi/${HOSTNAME} octopi/" /etc/hosts
 
 
-# Création d'un utilisateur octprint
-_log "=> Ajout d'un utilisateur ${USERNAME}"
-${CMD_OCTO} user add --password "${USERNAME}" --admin ${USERNAME} > /dev/null
-
-
 # Création du compte de backup
 if [ -e conf/rescue-mdp ]; then
   _log "=> Ajout d'un compte \"rescue\""
@@ -76,6 +71,10 @@ _log "=> MàJ github des scripts"
 git -C ${ROOT_DIR}${SCRIPT_DIR} branch --set-upstream-to=origin/main main
 git -C ${ROOT_DIR}${SCRIPT_DIR} pull origin main
 
+
+# Couper octoprint
+_log "=> Octoprint : coupure du service durant la màj"
+service octoprint stop
 
 
 ###############
@@ -105,7 +104,7 @@ sudo apt install -y --no-install-recommends nodejs npm
 
 # Crontab
 _log "  => Crontab"
-sudo cp -f ${SCRIPT_DIR}/conf/etc/cron.d/voron-cron /etc/cron.d/voron-cron
+sudo ln -s ${SCRIPT_DIR}/conf/etc/cron.d/voron-cron /etc/cron.d/voron-cron
 sudo chmod +x /etc/cron.d/voron-cron
 
 
@@ -134,35 +133,7 @@ echo mmc0 | sudo tee /sys/class/leds/led0/trigger > /dev/null # cpu0 (charge CPU
 
 
 # Octoprint
-_log "=> Octoprint"
-# Configuration octoprint de base
-_log "  => Configuration de l'API"
-API_KEY=$(head -c16 </dev/urandom|xxd -p -u)
-echo -e "${CYAN}  => Génération d'une clé : ${RED}${API_KEY}${NC}"
-_config api.enabled true "Activation"
-_config api.allowCrossOrigin true
-_config api.key ${API_KEY}
-_config accessControl.salt $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-_config server.secretKey $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-mkdir -p ${HOME_DIR}/.octoprint/printerProfiles
-cp -f conf/voron.profile ${HOME_DIR}/.octoprint/printerProfiles/_default.profile
-
-#/oprint/bin/octoprint config effective
-_log "=> Configuration octoprint"
-_config appearance.name $(cat /etc/hostname)
-_config feature.sdSupport false "Désactivation de la carte SD"
-_config plugins.tracking.enabled true "Tracking"
-_config server.firstRun false "Désactivation de l'assistance"
-_config server.pluginBlacklist.enabled true "Blacklist"
-_config appearance.components.disabled.usersettings[0] plugin_appkeys
-_config appearance.components.disabled.navbar[0] login
-_log "  => Online check"
-_config server.onlineCheck.enabled true
-_config server.onlineCheck.host "185.121.177.177"
-_log "  => Désactivation des plugins inutiles"
-_config plugins._disabled[0] errortracking "ErrorTracking"
-_config plugins._disabled[1] cura "Cura"
-
+. ${SCRIPT_DIR}/modules/conf-octoprint.sh
 
 # Splashscreen
 _log "=> SplashScreen"
@@ -179,6 +150,12 @@ sudo systemctl enable splashscreen
 # ADXL
 . ${SCRIPT_DIR}/modules/adxl.sh
 
+# Redémarrage d'octo
+_log "=> Octoprint : redémarrage"
+service octoprint restart
+sleep 5
+
 _log "=> Fin de l'installation : Nettoyage"
 sudo apt autoremove -y
 sudo apt clean
+exit 0
