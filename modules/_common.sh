@@ -14,14 +14,14 @@ PI_PASSWORD_DEFAULT="raspberry"
 PI_PASSWORD=${PI_PASSWORD_DEFAULT}
 
 # Versions
-VERSION_SCRIPT=2022052901
-YQ_VERSION="3.4.0/yq_linux_arm"         # Version de Yaml parser
-KLIPPER_CONF_VERSION="20220423"         # Fichier de configuration klipper
+VERSION_SCRIPT=2022052902
+YQ_VERSION="3.4.0"		         # Version de Yaml parser
+KLIPPER_CONF_VERSION="20220423"  # Fichier de configuration klipper
 
 
 # Flash
 DEVICE="/dev/sdb"
-IMG="~/Temp/voron-backup/octopi-0.18.0-1.8.0-20220517112637.img"
+IMG="/home/matthieu/Temp/voron-backup/octopi-0.18.0-1.8.0-20220517112637.img"
 MOUNT_DIR="out/mount"
 BOOT_DIR="${MOUNT_DIR}/boot"
 ROOT_DIR="${MOUNT_DIR}/root"

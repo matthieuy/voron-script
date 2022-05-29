@@ -14,7 +14,7 @@ if [ '${whoami}' == 'root' ]; then
 fi
 
 # Flash de la SD
-#./build-image/01-flash-sd.sh
+./build-image/01-flash-sd.sh
 
 
 # Remontage

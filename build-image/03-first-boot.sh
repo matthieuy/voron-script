@@ -64,7 +64,7 @@ sudo locale-gen
 
 
 # Installation globale
-sudo apt install -y tree zsh autojump fbi
+sudo apt install -y tree zsh autojump fbi rsync
 
 # NPM (GPIO serveur)
 sudo apt install -y --no-install-recommends nodejs npm

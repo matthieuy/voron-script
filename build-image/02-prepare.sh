@@ -28,19 +28,18 @@ if [ ! -e ${DEVICE} ]; then
     exit 2
 fi
 
-
-
+ 
 # Démontage si besoin
 NB_MOUNT=$(mount | grep ^${DEVICE} | wc -l)
 if [ ${NB_MOUNT} -ne 0 ]; then
 	echo -e "=> Démontage des ${CYAN}${NB_MOUNT}${NC} partitions"
-	mount | grep ^${DEVICE} | awk '{ print $1 }' | xargs umount
+	mount | grep ^${DEVICE} | awk '{ print $1 }'|xargs umount
 fi
 
 
 
 # Montage
-echo -e "=> Montage des partitions"
+_log "=> Montage des partitions"
 mkdir -p ${BOOT_DIR}
 mkdir -p ${ROOT_DIR}
 sudo mount ${DEVICE}1 ${BOOT_DIR}
@@ -49,15 +48,15 @@ sudo mount ${DEVICE}2 ${ROOT_DIR}
 
 
 # Préparation des dossiers
+_log "=> Création des dossiers"
 mkdir -p ${ROOT_DIR}${SHARE_DIR}
 mkdir -p ${ROOT_DIR}${SCRIPT_DIR}
-cp -rf * ${ROOT_DIR}${SCRIPT_DIR}
-cp -f scripts/* ${ROOT_DIR}${HOME_DIR}/scripts/*
+rsync -av --progress * ${ROOT_DIR}${SCRIPT_DIR} --exclude out --exclude old
 
+_log "  => Application des droits"
 chmod +x ${ROOT_DIR}${HOME_DIR}/scripts/*
 chmod +x ${ROOT_DIR}${SCRIPT_DIR}/modules/*
 chmod +x ${ROOT_DIR}${SCRIPT_DIR}/build-image/*
-
 
 # Boot config
 _log "=> Boot config"
@@ -79,11 +78,11 @@ _log "  => ADXL"
 sudo sed -i "s/#dtparam=spi=on/dtparam=spi=on/" out/config.txt
 sudo cp -f out/config.txt ${BOOT_DIR}/config.txt
 
-
 # Splashscreen
 _log "=> SplashScreen"
-sudo cp conf/systemd/system/splashscreen.service ${ROOT_DIR}/etc/systemd/system/splashscreen.service
-cp conf/splashscreen/splashscreen.png ${ROOT_DIR}${SHARE_DIR}/splashscreen.png
+mkdir -p ${ROOT_DIR}/etc/systemd/system/
+sudo cp conf/etc/systemd/system/splashscreen.service ${ROOT_DIR}/etc/systemd/system/splashscreen.service
+cp conf/share/splashscreen.png ${ROOT_DIR}${SHARE_DIR}/splashscreen.png
 
 
 # Wifi
@@ -102,8 +101,8 @@ read -p "Hostname [${HOSTNAME_DEFAULT}] : " HOSTNAME
 if [ "${HOSTNAME}" = "" ]; then
 	HOSTNAME=${HOSTNAME_DEFAULT}
 fi
-echo -ne "${CYAN}=> Change du nom du systeme : ${RED}${HOSTNAME}"
-echo "${HOSTNAME}" | sudo tee ${ROOT_DIR}/etc/hostname
+echo -ne "${CYAN}=> Change du nom du systeme : ${RED}${HOSTNAME}${NC}"
+echo "${HOSTNAME}" | sudo tee ${ROOT_DIR}/etc/hostname > /dev/null
 echo -e "${NC}"
 sudo cp -f conf/etc/hosts ${ROOT_DIR}/etc/hosts
 sudo sed -i "s/octopi/${HOSTNAME} octopi/" ${ROOT_DIR}/etc/hosts
@@ -157,11 +156,11 @@ sed -i 's/plugins=(/plugins=(autojump command-not-found sudo common-aliases debi
 
 # YQ
 _log "  => Yaml parser"
-TMP_OUT="out/wq-${YQ_VERSION}"
+TMP_OUT="out/wq${YQ_VERSION}"
 if [ ! -e ${TMP_OUT} ]; then
-	wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION} -O ${TMP_OUT}
+	wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_arm -O ${TMP_OUT}
 fi
-sudo mv ${TMP_OUT} ${ROOT_DIR}/usr/local/bin/yq3
+sudo cp ${TMP_OUT} ${ROOT_DIR}/usr/local/bin/yq3
 sudo chmod +x ${ROOT_DIR}/usr/local/bin/yq3
 
 
@@ -202,6 +201,7 @@ _preconfig api.allowCrossOrigin true
 _preconfig api.key ${API_KEY}
 _preconfig accessControl.salt $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 _preconfig server.secretKey $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+mkdir -p ${ROOT_DIR}${HOME_DIR}/.octoprint/printerProfiles
 cp -f conf/voron.profile ${ROOT_DIR}${HOME_DIR}/.octoprint/printerProfiles/_default.profile
 
 #/oprint/bin/octoprint config effective
@@ -222,7 +222,7 @@ _preconfig plugins._disabled[1] cura "Cura"
 
 # Fin de la préparation
 _log "=> Fin de l'installation"
-cat ${VERSION_SCRIPT} ${ROOT_DIR}${SCRIPT_DIR}/out/CURENT_VERSION
+echo ${VERSION_SCRIPT} > ${ROOT_DIR}${SCRIPT_DIR}/out/CURENT_VERSION
 read -p "Démontage des partitions [Y/n] ?" CONFIRM
 if [ "${CONFIRM}" != "n" ] && [ "${CONFIRM}" != "N" ]; then
   sudo umount ${BOOT_DIR}

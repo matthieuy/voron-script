@@ -30,10 +30,10 @@ fi
 
 # Check périphérique
 if [ ! -f ${IMG} ]; then
-    echo "Image introuvable"
+    echo "Image introuvable : ${IMG}"
     exit 2
 elif [ ! -e ${DEVICE} ]; then
-    echo "Périphérique introuvable"
+    echo "Périphérique introuvable : ${DEVICE}"
     exit 2
 fi
 
