@@ -1,0 +1,4 @@
+old/
+conf/octopi-wpa-supplicant.txt
+out/*
+!out/.gitkeep

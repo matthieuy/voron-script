@@ -1,0 +1,10 @@
+# m h  dom mon dow   user	command
+
+# Creation du dossier de partage
+@reboot pi mkdir -p /home/pi/.octoprint/uploads/system
+
+# Initialisation des GPIO
+@reboot pi bash /home/pi/scripts/init-gpio.sh
+
+# Btn RPI
+@reboot root python /home/pi/scripts/btn-rpi.py

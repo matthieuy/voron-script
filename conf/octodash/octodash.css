@@ -1,0 +1,9 @@
+/** Hide logo **/
+.main-menu__heading {
+    color: #323846 !important;
+}
+
+/** Hide print name **/
+.bottom-bar__printer-name {
+    color: #323846 !important;
+}
