@@ -58,11 +58,18 @@ sudo cp -f conf/etc/hosts /etc/hosts
 sudo sed -i "s/octopi/${HOSTNAME} octopi/" /etc/hosts
 
 
-
 # Création d'un utilisateur octprint
 _log "=> Ajout d'un utilisateur ${USERNAME}"
 ${CMD_OCTO} user add --password "${USERNAME}" --admin ${USERNAME} > /dev/null
 
+
+# Création du compte de backup
+if [ -e conf/rescue-mdp ]; then
+  _log "=> Ajout d'un compte \"rescue\""
+  MDP_RESCUE=$(cat conf/rescue-mdp)
+  sudo useradd -m -p $(openssl passwd -1 ${MDP_RESCUE}) -s /bin/bash -G sudo rescue
+  sudo adduser rescue sudo
+fi
 
 ###############
 ### UPGRADE ###
