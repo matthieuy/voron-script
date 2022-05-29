@@ -51,9 +51,13 @@ sudo mount ${DEVICE}2 ${ROOT_DIR}
 _log "=> Création des dossiers"
 mkdir -p ${ROOT_DIR}${SHARE_DIR}
 mkdir -p ${ROOT_DIR}${SCRIPT_DIR}
-mkdir -p ${ROOT_DIR}${SCRIPT_DIR}/out
 
+_log "=> Récupération des sources"
 rsync -av --progress ./ ${ROOT_DIR}${SCRIPT_DIR} --exclude out --exclude old
+git -C ${ROOT_DIR}${SCRIPT_DIR} remote remove origin
+git -C ${ROOT_DIR}${SCRIPT_DIR} remote add origin ${GIT_REPO}
+git -C ${ROOT_DIR}${SCRIPT_DIR} branch --set-upstream-to=origin/main main
+git -C ${ROOT_DIR}${SCRIPT_DIR} pull
 
 _log "  => Application des droits"
 chmod +x ${ROOT_DIR}${HOME_DIR}/scripts/*
