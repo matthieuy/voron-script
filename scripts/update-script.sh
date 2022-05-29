@@ -16,3 +16,34 @@ fi
 echo "Version actuelle : ${CURRENT_VERSION}"
 
 
+# Update des sources
+cd ${SCRIPT_DIR}
+git pull origin
+git log -n1 --oneline
+
+
+# Comparaison des versions
+source /home/pi/voron/modules/_common.sh
+if [ ${CURRENT_VERSION} -ge ${VERSION_SCRIPT} ]; then
+	echo "Aucune mise à jour disponible"
+	exit 0
+fi
+echo "Mise à jour : ${CURRENT_VERSION} => ${VERSION_SCRIPT}"
+echo ${VERSION_SCRIPT} > ${VERSION_FILE}
+
+
+# On écrase les scripts
+echo "  => Scripts"
+cp -rf ${SCRIPT_DIR}/scripts/* ${HOME_DIR}/scripts/
+chmod +x ${HOME_DIR}/scripts/*
+
+# Cron + sudoers
+echo "  => Cron + sudoers"
+sudo cp -rf ${SCRIPT_DIR}/conf/etc/cron.d/* /etc/cron.d/
+sudo cp -rf ${SCRIPT_DIR}/conf/etc/sudoers.d/* /etc/sudoers.d/
+
+
+# Fin
+echo ${VERSION_SCRIPT} > ${VERSION_FILE}
+echo "Mise à jour terminée"
+exit 0

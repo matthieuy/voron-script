@@ -14,7 +14,7 @@ PI_PASSWORD_DEFAULT="raspberry"
 PI_PASSWORD=${PI_PASSWORD_DEFAULT}
 
 # Versions
-VERSION_SCRIPT=20220522
+VERSION_SCRIPT=2022052901
 YQ_VERSION="3.4.0/yq_linux_arm"         # Version de Yaml parser
 KLIPPER_CONF_VERSION="20220423"         # Fichier de configuration klipper
 
@@ -36,6 +36,7 @@ CONF_OCTO="/home/pi/.octoprint/config.yaml"
 CMD_OCTO="/home/pi/oprint/bin/octoprint"
 PIP_BIN="/home/pi/oprint/bin/pip"
 VERSION_FILE="${SCRIPT_DIR}/out/CURRENT_VERSION.txt"
+GPIO_DIR="${SCRIPT_DIR}/gpio"
 
 
 # Couleurs
@@ -73,4 +74,14 @@ _preconfig() {
 _plugins() {
     _log "  => $1"
     $PIP_BIN install -q --disable-pip-version-check $2
+}
+
+# Copier un fichier (fichier1, fichier2)
+# Si le fichier 1 est + récent que le 2 : écrasement
+_synchroFile() {
+    if [ "$1" -nt "$2" ];then
+        cp -f "$1" "$2"
+    else
+        cp -f "$2" "$1"
+    fi
 }

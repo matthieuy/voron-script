@@ -1,7 +1,7 @@
 # m h  dom mon dow   user	command
 
-# Creation du dossier de partage
-@reboot pi mkdir -p /home/pi/.octoprint/uploads/system
+# Synchro des fichiers
+@reboot pi bash /home/pi/scripts/synchro-file.sh
 
 # Initialisation des GPIO
 @reboot pi bash /home/pi/scripts/init-gpio.sh
