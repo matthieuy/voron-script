@@ -6,6 +6,7 @@ source /home/pi/voron/modules/_common.sh
 
 
 # Check current version
+mkdir -p ${SCRIPT_DIR}
 if [ -e ${VERSION_FILE} ]; then
 	let CURRENT_VERSION=0
 	let "CURRENT_VERSION += $(cat ${VERSION_FILE})"
