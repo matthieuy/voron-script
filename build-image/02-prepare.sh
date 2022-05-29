@@ -52,7 +52,8 @@ _log "=> Création des dossiers"
 mkdir -p ${ROOT_DIR}${SHARE_DIR}
 mkdir -p ${ROOT_DIR}${SCRIPT_DIR}
 mkdir -p ${ROOT_DIR}${SCRIPT_DIR}/out
-rsync -av --progress * ${ROOT_DIR}${SCRIPT_DIR} --exclude out --exclude old
+
+rsync -av --progress ./ ${ROOT_DIR}${SCRIPT_DIR} --exclude out --exclude old
 
 _log "  => Application des droits"
 chmod +x ${ROOT_DIR}${HOME_DIR}/scripts/*
