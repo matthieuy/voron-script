@@ -1,0 +1,2 @@
+# Change sudoer timeout : 30 minutes
+Defaults:pi timestamp_timeout=30
