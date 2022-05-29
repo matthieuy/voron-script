@@ -206,7 +206,7 @@ fi
 
 # Fin de la préparation
 _log "=> Fin de la préparation de la carte SD"
-echo ${VERSION_SCRIPT} > ${ROOT_DIR}${SCRIPT_DIR}/out/CURENT_VERSION
+echo ${VERSION_SCRIPT} > ${ROOT_DIR}${VERSION_FILE}
 read -p "Démontage des partitions [Y/n] ?" CONFIRM
 if [ "${CONFIRM}" != "n" ] && [ "${CONFIRM}" != "N" ]; then
   echo "Etapes un peu longues..."
