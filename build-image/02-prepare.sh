@@ -110,8 +110,8 @@ fi
 # Script d'update
 _log "=> Scripts"
 _log "  => Script pour les mises à jour"
-sudo cp -f conf/etc/sudoers.d/rpi-updater ${ROOT_DIR}/etc/sudoers.d/rpi-updater
-sudo chmod 440 ${ROOT_DIR}/etc/sudoers.d/rpi-updater
+sudo cp -f conf/etc/sudoers.d/* ${ROOT_DIR}/etc/sudoers.d/
+sudo chmod 440 ${ROOT_DIR}/etc/sudoers.d/*
 
 
 # Oh my ZSH

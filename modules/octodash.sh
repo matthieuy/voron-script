@@ -44,7 +44,7 @@ rm /tmp/octodash.deb
 _log "  => Configuration"
 _log "    => API"
 mkdir -p ${DASH_DIR}
-cp -f ${SCRIPT_DIR}/conf/octodash/octodash/octodash.json.tpl ${DASH_DIR}/octodash.json
+cp -f ${SCRIPT_DIR}/conf/octodash/octodash.json.tpl ${DASH_DIR}/octodash.json
 API_KEY=$(yq3 r ${CONF_OCTO} api.key)
 if [ "$API_KEY" != "" ]; then
   sed -i "s/API_KEY/${API_KEY}/g" ${DASH_DIR}/octodash.json
@@ -52,7 +52,7 @@ fi
 
 _log "    => Theme"
 cp -f ${SCRIPT_DIR}/conf/octodash/octodash.css ${DASH_DIR}/octodash.css
-cp -f ${DASH_DIR}/octodash.css ${SHARE_DIR}/octodash-theme.txt
+cp -f ${SCRIPT_DIR}/conf/octodash/octodash.css ${SHARE_DIR}/octodash-theme.txt
 
 # Config de l'autostart
 _log "    => Autostart"
@@ -73,7 +73,7 @@ sudo chmod ug+s /usr/lib/xorg/Xorg
 
 # Update
 _log "    => Auto-update"
-sudo cp -f${SCRIPT_DIR}/conf/etc/sudoers.d/update-octodash /etc/sudoers.d/update-octodash
+sudo cp -f ${SCRIPT_DIR}/conf/etc/sudoers.d/update-octodash /etc/sudoers.d/update-octodash
 
 # Redémarrage des services
 _log "    => Redémarrage des services"

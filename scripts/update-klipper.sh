@@ -34,6 +34,6 @@ make
 cp -f ${KLIPPER_DIR}/out/klipper.bin ${SHARE_DIR}
 
 # Exit
-rm ${KLIPPER_PID}
+rm -f ${KLIPPER_PID}
 echo "\nCompilation terminée"
 exit 0
