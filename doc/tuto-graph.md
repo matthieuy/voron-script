@@ -17,7 +17,10 @@ Elles seront affinées avec le temps pour récupérer que ce qui est pertinant p
 
 ## Authentification
 
-Demandez à Obi un couple "login/mot de passe" (sans ceci, les stats ne seront pas prisent en comptes).
+Demandez à Obi un compte (précisez le nom de l'imprimante et votre pseudo). Sans ceci, les stats ne seront pas prisent en comptes. Il vous fournira :
+* l'url de stats à saisir dans le plugins "Webhooks"
+* le login à utiliser dans le plugins "Webhooks"
+* le mot de passe associé à ce login à configurer dans le plugins
 
 ## Configuration
 
@@ -28,7 +31,7 @@ Appliquez la configuration suivante :
 
 * Général : 
     * ENABLED : Coché
-    * URL : `https://geekariom.com/print.php`
+    * URL : `L'URL fournie dans l'étape "authentification"`
     * Testing : Merci de ne pas utiliser car ceci peut fausser les stats.
 * Templates :
     * Aucune modification et merci ne de pas utiliser.
@@ -63,3 +66,9 @@ Appliquez la configuration suivante :
 * OAuth :
     * OAUTH ENABLED :
         * Décoché
+
+
+## Accès aux graphs
+
+Pour accéder aux graphs, comme pour l'étape d'authentification, il faut demander à Obi un compte. Il vous fournira :
+* l'URL pour accéder aux gra

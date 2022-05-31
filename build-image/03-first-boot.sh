@@ -72,7 +72,7 @@ git -C ${SCRIPT_DIR} pull origin main
 
 # Couper octoprint
 _log "=> Octoprint : coupure du service durant la màj"
-service octoprint stop
+sudo service octoprint stop
 
 
 ###############
@@ -85,6 +85,7 @@ _log "  => Dépôt"
 sudo apt update -q -y
 _log "  => Système"
 sudo apt full-upgrade -y
+sudo apt --fix-broken install -y
 
 # Génération du support clavier
 _log "=> Passage en français"
@@ -96,7 +97,7 @@ _log "=> Installation de paquets de base"
 sudo apt install -y tree zsh autojump fbi rsync
 
 # NPM (GPIO serveur)
-_log" => NodeJS"
+_log " => NodeJS"
 sudo apt install -y --no-install-recommends nodejs npm
 
 
@@ -151,7 +152,7 @@ sudo systemctl enable splashscreen
 
 # Redémarrage d'octo
 _log "=> Octoprint : redémarrage"
-service octoprint restart
+sudo service octoprint restart
 sleep 5
 
 _log "=> Fin de l'installation : Nettoyage"
