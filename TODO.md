@@ -4,6 +4,9 @@ TODO
 * [ ] GPIO serveur
 * [ ] Restauration backup
 * [ ] Compte de backup
+* [ ] Déplacement "dev mode" dans un script : npm, nodejs, gpio...
 * [ ] Check script update :
-    * [ ] Déplacer le sudoers via un lien symbolique
+    * [ ] Pouvoir utiliser le sudo pour:
+        * [ ] sudoers
+        * [ ] apt install
 * [ ] Purge des logs/... via crontab

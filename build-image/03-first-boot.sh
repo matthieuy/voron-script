@@ -96,10 +96,6 @@ sudo locale-gen
 _log "=> Installation de paquets de base"
 sudo apt install -y tree zsh autojump fbi rsync
 
-# NPM (GPIO serveur)
-_log " => NodeJS"
-sudo apt install -y --no-install-recommends nodejs npm
-
 
 # Crontab
 _log "  => Crontab"
