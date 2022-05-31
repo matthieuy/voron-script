@@ -100,10 +100,10 @@ sudo cp -f out/config.txt ${BOOT_DIR}/config.txt
 # Wifi
 WIFI_CONF="conf/octopi-wpa-supplicant.txt"
 if [ -f ${WIFI_CONF} ]; then
-    echo -e "  => Copie du fichier de configuration Wifi"
+    _log "  => Copie du fichier de configuration Wifi"
     sudo cp -f ${WIFI_CONF} ${BOOT_DIR}/octopi-wpa-supplicant.txt
 else
-	echo -e "${RED}/!\ Pas de fichier de configuration Wifi détecter${NC}"
+	_log "${RED}/!\ Pas de fichier de configuration Wifi détecter${NC}"
 fi
 
 
@@ -206,6 +206,7 @@ fi
 
 # Fin de la préparation
 _log "=> Fin de la préparation de la carte SD"
+mkdir -p $(dirname ${ROOT_DIR}${VERSION_FILE})
 echo ${VERSION_SCRIPT} > ${ROOT_DIR}${VERSION_FILE}
 read -p "Démontage des partitions [Y/n] ?" CONFIRM
 if [ "${CONFIRM}" != "n" ] && [ "${CONFIRM}" != "N" ]; then
