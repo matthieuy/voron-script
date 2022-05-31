@@ -17,7 +17,7 @@ _config api.key ${API_KEY}
 _config accessControl.salt $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 _config server.secretKey $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 mkdir -p ${HOME_DIR}/.octoprint/printerProfiles
-cp -f conf/voron.profile ${HOME_DIR}/.octoprint/printerProfiles/_default.profile
+cp -f ${SCRIPT_DIR}/conf/voron.profile ${HOME_DIR}/.octoprint/printerProfiles/_default.profile
 
 #/oprint/bin/octoprint config effective
 _log "=> Configuration octoprint"
