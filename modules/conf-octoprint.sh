@@ -38,6 +38,3 @@ _config plugins._disabled[1] cura "Cura"
 # Création d'un utilisateur octprint
 _log "=> Ajout d'un utilisateur ${USERNAME}"
 ${CMD_OCTO} user add --password "${USERNAME}" --admin ${USERNAME} > /dev/null
-
-
-exit 0

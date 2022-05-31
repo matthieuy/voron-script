@@ -22,5 +22,3 @@ if [ "${NB_UPDATE}" != "0" ]; then
 	_log "    => Mise à jour"
 	${CMD_OCTO} plugins softwareupdate:update
 fi
-
-exit 0

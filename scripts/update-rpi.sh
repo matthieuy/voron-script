@@ -24,4 +24,4 @@ echo -e "\nUpgrade terminé"
 
 # Exit
 rm ${APT_PID}
-exit 0
+

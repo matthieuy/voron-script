@@ -49,4 +49,4 @@ cp -f ${SCRIPT_DIR}/conf/klipper/makeconfig.txt ${KLIPPER_DIR}/.config
 # Fin
 echo ${VERSION_SCRIPT} > ${VERSION_FILE}
 echo "Mise à jour terminée"
-exit 0
+

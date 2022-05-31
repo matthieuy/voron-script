@@ -63,7 +63,6 @@ if [ -e conf/rescue-mdp ]; then
   _log "=> Ajout d'un compte \"rescue\""
   MDP_RESCUE=$(cat conf/rescue-mdp)
   sudo useradd -m -p $(openssl passwd -1 ${MDP_RESCUE}) -s /bin/bash -G sudo rescue
-  sudo adduser rescue sudo
 fi
 
 # Check script
@@ -128,6 +127,7 @@ _log "=> Klipper"
 . ${SCRIPT_DIR}/scripts/update-klipper.sh
 
 # Led IDE
+_log "=> LED IDE"
 echo mmc0 | sudo tee /sys/class/leds/led0/trigger > /dev/null # cpu0 (charge CPU) ou mmc0 (lecture carte SD)
 
 
