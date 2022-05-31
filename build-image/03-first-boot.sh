@@ -144,7 +144,7 @@ sudo systemctl enable splashscreen
 . ${SCRIPT_DIR}/modules/octodash.sh
 
 # ADXL
-. ${SCRIPT_DIR}/modules/adxl.sh
+#. ${SCRIPT_DIR}/modules/adxl.sh
 
 # Redémarrage d'octo
 _log "=> Octoprint : redémarrage"
