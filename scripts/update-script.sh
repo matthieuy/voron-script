@@ -19,7 +19,7 @@ echo "Version actuelle : ${CURRENT_VERSION}"
 
 # Update des sources
 cd ${SCRIPT_DIR}
-git pull origin main
+git pull -q origin main
 git log -n1 --oneline
 
 
