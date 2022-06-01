@@ -38,14 +38,21 @@ echo "  => Scripts"
 cp -rf ${SCRIPT_DIR}/scripts/* ${HOME_DIR}/scripts/
 chmod +x ${HOME_DIR}/scripts/*
 
-# sudoers
-echo "  => Sudoers"
-sudo cp -rf ${SCRIPT_DIR}/conf/etc/sudoers.d/* /etc/sudoers.d/
-sudo touch /etc/sudoers.d/test
-
 # Klipper
 echo "  => Configuration klipper"
 cp -f ${SCRIPT_DIR}/conf/klipper/makeconfig.txt ${KLIPPER_DIR}/.config
+
+# Lancement des scripts d'upgrade
+for FILE in $(ls upgrade); do
+    UPGRADE_VERSION=$(basename $FILE .sh)
+    if [ ${UPGRADE_VERSION} = "_template" ]; then
+        continue
+    fi
+    if [ ${UPGRADE_VERSION} -ge ${CURRENT_VERSION} ]; then
+        sudo /home/pi/scripts/upgrade/${UPGRADE_VERSION}.sh
+    fi
+done
+
 
 # Fin
 echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE}
