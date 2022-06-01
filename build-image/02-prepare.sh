@@ -112,9 +112,7 @@ fi
 _log "=> Scripts"
 _log "  => Script pour les mises à jour"
 sudo cp -f conf/etc/sudoers.d/* ${ROOT_DIR}/etc/sudoers.d/
-sudo rm -f ${ROOT_DIR}/etc/sudoers.d/sudo-voron
 sudo chmod 440 ${ROOT_DIR}/etc/sudoers.d/*
-sudo ln -s ${SCRIPT_DIR}/conf/etc/sudoers.d/sudo-voron ${ROOT_DIR}/etc/sudoers.d/sudo-voron
 
 
 
