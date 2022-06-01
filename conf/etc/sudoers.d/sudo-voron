@@ -1,3 +1,6 @@
 # Commandes pour faire les upgrades
 Cmnd_Alias UPDATER = /home/pi/scripts/update-rpi.sh, /home/pi/scripts/update-script.sh, /usr/bin/apt update -q, /usr/bin/apt full-upgrade -y, /usr/bin/apt autoremove -y
 %sudo   ALL= NOPASSWD: UPDATER
+
+Cmnd_Alias SCRIPT_UPGRADE = /home/pi/scripts/upgrade/1.sh
+%sudo   ALL= NOPASSWD: SCRIPT_UPGRADE
