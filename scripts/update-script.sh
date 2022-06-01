@@ -19,18 +19,18 @@ echo "Version actuelle : ${CURRENT_VERSION}"
 
 # Update des sources
 cd ${SCRIPT_DIR}
-git pull origin
+git pull origin main
 git log -n1 --oneline
 
 
 # Comparaison des versions
-source /home/pi/voron/modules/_common.sh
-if [ ${CURRENT_VERSION} -ge ${VERSION_SCRIPT} ]; then
+NEW_VERSION_SCRIPT=$(cat /home/pi/voron/modules/_common.sh|grep VERSION_SCRIPT|cut -d= -f2)
+if [ ${CURRENT_VERSION} -ge ${NEW_VERSION_SCRIPT} ]; then
 	echo "Aucune mise à jour disponible"
 	exit 0
 fi
-echo "Mise à jour : ${CURRENT_VERSION} => ${VERSION_SCRIPT}"
-echo ${VERSION_SCRIPT} > ${VERSION_FILE}
+echo "Mise à jour : ${CURRENT_VERSION} => ${NEW_VERSION_SCRIPT}"
+echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE}
 
 
 # On écrase les scripts
@@ -47,6 +47,6 @@ echo "  => Configuration klipper"
 cp -f ${SCRIPT_DIR}/conf/klipper/makeconfig.txt ${KLIPPER_DIR}/.config
 
 # Fin
-echo ${VERSION_SCRIPT} > ${VERSION_FILE}
+echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE}
 echo "Mise à jour terminée"
 
