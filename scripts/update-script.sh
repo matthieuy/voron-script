@@ -14,7 +14,7 @@ else
 	CURRENT_VERSION=${VERSION_SCRIPT}
 	echo ${CURRENT_VERSION} > ${VERSION_FILE}
 fi
-echo "Version actuelle : ${CURRENT_VERSION}"
+echo "Version actuelle : v${CURRENT_VERSION}"
 
 
 # Update des sources
@@ -29,7 +29,7 @@ if [ ${CURRENT_VERSION} -ge ${NEW_VERSION_SCRIPT} ]; then
 	echo "Aucune mise à jour disponible"
 	exit 0
 fi
-echo "Mise à jour : ${CURRENT_VERSION} => ${NEW_VERSION_SCRIPT}"
+echo "Mise à jour : v${CURRENT_VERSION} => v${NEW_VERSION_SCRIPT}"
 echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE}
 
 
@@ -49,6 +49,7 @@ for FILE in $(ls upgrade); do
         continue
     fi
     if [ ${UPGRADE_VERSION} -ge ${CURRENT_VERSION} ]; then
+		echo "  => Lancement script v${UPGRADE_VERSION}"
         sudo /home/pi/scripts/upgrade/${UPGRADE_VERSION}.sh
     fi
 done
