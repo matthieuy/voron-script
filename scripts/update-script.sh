@@ -41,6 +41,7 @@ chmod +x ${HOME_DIR}/scripts/*
 # sudoers
 echo "  => Sudoers"
 sudo cp -rf ${SCRIPT_DIR}/conf/etc/sudoers.d/* /etc/sudoers.d/
+sudo touch /etc/sudoers.d/test
 
 # Klipper
 echo "  => Configuration klipper"
