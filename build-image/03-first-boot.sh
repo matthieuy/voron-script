@@ -68,6 +68,7 @@ fi
 # Check script
 _log "=> MàJ github des scripts"
 git -C ${SCRIPT_DIR} pull origin main
+mkdir -p ${SHARE_DIR}
 
 
 # Couper octoprint
@@ -121,6 +122,9 @@ sudo chsh -s /usr/bin/zsh $(whoami)
 
 # Klipper
 _log "=> Klipper"
+cp -f ${SCRIPT_DIR}/conf/klipper/makeconfig.txt ${SHARE_DIR}/klipper-makeconfig.txt
+cp -f ${SCRIPT_DIR}/conf/klipper/klipper-macro.txt ${SHARE_DIR}/klipper-macro.txt
+cp -f ${SCRIPT_DIR}/conf/klipper/klipper-static_${KLIPPER_CONF_VERSION}.txt ${SHARE_DIR}/klipper-static.txt
 . ${SCRIPT_DIR}/scripts/update-klipper.sh
 
 # Led IDE

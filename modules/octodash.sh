@@ -51,6 +51,7 @@ if [ "$API_KEY" != "" ]; then
 fi
 
 _log "    => Theme"
+mkdir -p ${SHARE_DIR}
 cp -f ${SCRIPT_DIR}/conf/octodash/octodash.css ${DASH_DIR}/octodash.css
 cp -f ${SCRIPT_DIR}/conf/octodash/octodash.css ${SHARE_DIR}/octodash-theme.txt
 

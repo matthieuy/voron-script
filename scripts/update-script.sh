@@ -38,9 +38,8 @@ echo "  => Scripts"
 cp -rf ${SCRIPT_DIR}/scripts/* ${HOME_DIR}/scripts/
 chmod +x ${HOME_DIR}/scripts/*
 
-# Klipper
+# Synchro des fichiers
 echo "  => Configuration klipper"
-cp -f ${SCRIPT_DIR}/conf/klipper/makeconfig.txt ${KLIPPER_DIR}/.config
 
 # Lancement des scripts d'upgrade
 for FILE in $(ls upgrade); do

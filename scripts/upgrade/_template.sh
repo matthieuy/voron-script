@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 #
-# 1er test d'upgrade
+# Script vierge pour les upgrades (fichier à nommer avec ${VERSION_SCRIPT})
 
-echo "Màj $#"
+source /home/pi/voron/modules/_common.sh

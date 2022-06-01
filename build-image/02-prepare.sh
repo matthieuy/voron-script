@@ -172,8 +172,6 @@ _log "  => Copie des sources"
 cp -rf ${TMP_OUT} ${ROOT_DIR}${KLIPPER_DIR}
 _log "  => Configuration"
 cp -f conf/klipper/makeconfig.txt ${ROOT_DIR}${KLIPPER_DIR}/.config
-cp -f conf/klipper/makeconfig.txt ${ROOT_DIR}${SHARE_DIR}/klipper-makeconfig.txt
-cp -f conf/klipper/klipper-macro.txt ${ROOT_DIR}${SHARE_DIR}/klipper-macro.txt
 cp -f conf/klipper/${KLIPPER_CONF_VERSION}.txt ${ROOT_DIR}${HOME_DIR}/printer.cfg
 cp -f conf/klipper/klipper-static_${KLIPPER_CONF_VERSION}.txt ${ROOT_DIR}${SHARE_DIR}/klipper-static.txt
 
