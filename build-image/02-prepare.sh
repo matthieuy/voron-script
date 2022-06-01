@@ -60,6 +60,7 @@ git -C ${ROOT_DIR}${SCRIPT_DIR} branch --set-upstream-to=origin main
 git -C ${ROOT_DIR}${SCRIPT_DIR} pull origin main
 
 _log "  => Application des droits"
+cp -f ${ROOT_DIR}${SCRIPT_DIR}/scripts/* ${ROOT_DIR}${HOME_DIR}/scripts/
 chmod +x ${ROOT_DIR}${HOME_DIR}/scripts/*
 chmod +x ${ROOT_DIR}${SCRIPT_DIR}/modules/*
 chmod +x ${ROOT_DIR}${SCRIPT_DIR}/build-image/*
