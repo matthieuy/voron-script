@@ -4,8 +4,10 @@
 
 source /home/pi/voron/modules/_common.sh
 
-# Lancer en root ou non
-RUN_AS_ROOT=0
+# Upgrade en root
 if [ '${whoami}' == 'root' ]; then
-    RUN_AS_ROOT=1
+
+else 
+# Upgrade en user "pi"
+
 fi
