@@ -35,7 +35,7 @@ fi
 # Changement du mdp
 if [ "${PI_PASSWORD}" == "${PI_PASSWORD_DEFAULT}" ]; then
 until [ "${PI_PASSWORD}" != "${PI_PASSWORD_DEFAULT}" ]; do
-  echo -ne "\n${RED}C'est le bon moment pour changer le mot de passe par défaut !\n${NC}Mot de passe : "
+  echo -ne "\n${RED}C'est le bon moment pour changer le mot de passe par défaut !\n${NC}Nouveau mot de passe : "
   read -s PI_PASSWORD
 done
 echo -e "${NC}"
@@ -67,7 +67,8 @@ fi
 
 # Check script
 _log "=> MàJ github des scripts"
-git -C ${SCRIPT_DIR} pull origin main
+git -C ${SCRIPT_DIR} branch --set-upstream-to=origin/main main
+git -C ${SCRIPT_DIR} reset --hard
 mkdir -p ${SHARE_DIR}
 
 
