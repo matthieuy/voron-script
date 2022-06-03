@@ -95,7 +95,7 @@ sudo locale-gen
 
 # Installation globale
 _log "=> Installation de paquets de base"
-sudo apt install -y tree zsh autojump fbi rsync
+sudo apt install -y tree zsh autojump fbi rsync hdparm sysbench
 
 
 # Crontab

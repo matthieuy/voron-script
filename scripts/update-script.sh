@@ -6,7 +6,7 @@ source /home/pi/voron/modules/_common.sh
 
 
 # Check current version
-mkdir -p ${SCRIPT_DIR}
+mkdir -p ${SCRIPT_DIR}/out
 if [ -e ${VERSION_FILE} ]; then
 	let CURRENT_VERSION=0
 	let "CURRENT_VERSION += $(cat ${VERSION_FILE})"
@@ -19,7 +19,7 @@ echo "Version actuelle : v${CURRENT_VERSION}"
 
 # Update des sources
 cd ${SCRIPT_DIR}
-git pull -q origin main
+git pull -q
 git log -n1 --oneline
 
 
@@ -49,12 +49,15 @@ for FILE in $(ls upgrade); do
     fi
     if [ ${UPGRADE_VERSION} -ge ${CURRENT_VERSION} ]; then
 		echo "  => Lancement script v${UPGRADE_VERSION}"
-        sudo /home/pi/scripts/upgrade/${UPGRADE_VERSION}.sh
+        sudo ${SCRIPT_DIR}/upgrade/${UPGRADE_VERSION}.sh
     fi
 done
 
 
 # Fin
 echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE}
-echo "Mise à jour terminée"
-
+if [ -e ${SCRIPT_DIR}/OUT/NEED_REBOOT ]; then
+    echo "Mise à jour terminée : un reboot du Rpi est nécessaire !"
+else
+    echo "Mise à jour terminée"
+fi

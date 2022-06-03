@@ -4,8 +4,8 @@
 
 source /home/pi/voron/modules/_common.sh
 
-
 # Check current version
+mkdir -p ${SCRIPT_DIR}/out
 if [ -e ${VERSION_FILE_ROOT} ]; then
 	let CURRENT_VERSION=0
 	let "CURRENT_VERSION += $(cat ${VERSION_FILE_ROOT})"
@@ -34,12 +34,13 @@ for FILE in $(ls upgrade); do
     fi
     if [ ${UPGRADE_VERSION} -ge ${CURRENT_VERSION} ]; then
 		echo "  => Lancement script v${UPGRADE_VERSION}"
-        /home/pi/scripts/upgrade/${UPGRADE_VERSION}.sh
+        ${SCRIPT_DIR}/upgrade/${UPGRADE_VERSION}.sh
     fi
 done
 
 
 # Fin
-echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE}
+echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE_ROOT}
+rm -f ${SCRIPT_DIR}/out/NEED_REBOOT
 echo "Mise à jour terminée"
 
