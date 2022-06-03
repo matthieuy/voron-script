@@ -37,6 +37,7 @@ CONF_OCTO="/home/pi/.octoprint/config.yaml"
 CMD_OCTO="/home/pi/oprint/bin/octoprint"
 PIP_BIN="/home/pi/oprint/bin/pip"
 VERSION_FILE="${SCRIPT_DIR}/out/CURRENT_VERSION.txt"
+VERSION_FILE_ROOT="${SCRIPT_DIR}/out/CURRENT_VERSION_ROOT.txt"
 GPIO_DIR="${SCRIPT_DIR}/gpio"
 
 

@@ -2,5 +2,5 @@
 #
 # 1er test d'upgrade
 
-echo "Màj $#"
+echo "Màj $_"
 sudo touch /etc/sudoers.d/test

@@ -60,7 +60,7 @@ git -C ${ROOT_DIR}${SCRIPT_DIR} branch --set-upstream-to=origin/main main
 git -C ${ROOT_DIR}${SCRIPT_DIR} pull origin main
 
 _log "  => Application des droits"
-cp -f ${ROOT_DIR}${SCRIPT_DIR}/scripts/* ${ROOT_DIR}${HOME_DIR}/scripts/
+cp -rf ${ROOT_DIR}${SCRIPT_DIR}/scripts/* ${ROOT_DIR}${HOME_DIR}/scripts/
 chmod +x ${ROOT_DIR}${HOME_DIR}/scripts/*
 chmod +x ${ROOT_DIR}${SCRIPT_DIR}/modules/*
 chmod +x ${ROOT_DIR}${SCRIPT_DIR}/build-image/*
@@ -208,6 +208,7 @@ fi
 _log "=> Fin de la préparation de la carte SD"
 mkdir -p $(dirname ${ROOT_DIR}${VERSION_FILE})
 echo ${VERSION_SCRIPT} > ${ROOT_DIR}${VERSION_FILE}
+echo ${VERSION_SCRIPT} > ${ROOT_DIR}${VERSION_FILE_ROOT}
 read -p "Démontage des partitions [Y/n] ?" CONFIRM
 if [ "${CONFIRM}" != "n" ] && [ "${CONFIRM}" != "N" ]; then
   echo "Etapes un peu longues..."
