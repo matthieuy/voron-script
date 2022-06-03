@@ -176,12 +176,11 @@ echo ${VERSION_SCRIPT} > ${ROOT_DIR}${VERSION_FILE}
 echo ${VERSION_SCRIPT} > ${ROOT_DIR}${VERSION_FILE_ROOT}
 read -p "Démontage des partitions [Y/n] ?" CONFIRM
 if [ "${CONFIRM}" != "n" ] && [ "${CONFIRM}" != "N" ]; then
-  echo "Etapes un peu longues..."
   _log "  => Boot"
   sudo umount ${BOOT_DIR}
   _log "  => Root"
   sudo umount ${ROOT_DIR}
-  _log "  => Synchro"
+  _log "  => Synchro (etape un peu longue)"
   sudo sync
 fi
 
