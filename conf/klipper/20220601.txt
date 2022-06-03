@@ -386,19 +386,21 @@ gcode:
 [gcode_macro PRINT_CANCEL]
 description: Gcode lors de l'annulation du print
 gcode:
-    G91
-    G0 Z5.00 F10000
-    G90
-    G28 X0 Y0
+    G91             ; Passage en position relative
+    G0 Z5.00 F10000	; Decallage de la tete vers le haut
+    G90             ; Passage en position absolue
+    G28 X0 Y0       ; Home X et Y
+    M107            ; Coupure du fan
 
 
 [gcode_macro IDLE_TIMEOUT]
 description: Timeout sans action
 gcode:
-    TURN_OFF_HEATERS   ; Coupure bed+hotend
-    M107               ; Coupure fan
-    G28 X0 Y0          ; Home en X et Y
-    M84                ; Coupure moteur
+    TURN_OFF_HEATERS    ; Coupure bed+hotend
+    M107                ; Coupure fan
+    G28 X0 Y0           ; Home en X et Y
+    G0 X5 Y5            ; Deplacement pour couper les endstop
+    M84                 ; Coupure moteur
 
 
 #### Include customs macro ####

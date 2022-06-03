@@ -17,7 +17,7 @@ GIT_REPO="https://github.com/matthieuy/voron-script.git"
 # Versions
 VERSION_SCRIPT=2022060104
 YQ_VERSION="3.4.0"		         # Version de Yaml parser
-KLIPPER_CONF_VERSION="20220423"  # Fichier de configuration klipper
+KLIPPER_CONF_VERSION="20220601"  # Fichier de configuration klipper
 
 
 # Flash
