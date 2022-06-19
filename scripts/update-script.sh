@@ -48,8 +48,10 @@ for FILE in $(ls upgrade); do
         continue
     fi
     if [ ${UPGRADE_VERSION} -ge ${CURRENT_VERSION} ]; then
+        UPGRADE_SCRIPT="${SCRIPT_DIR}/upgrade/${UPGRADE_VERSION}.sh"
 		echo "  => Lancement script v${UPGRADE_VERSION}"
-        sudo ${SCRIPT_DIR}/upgrade/${UPGRADE_VERSION}.sh
+        _logUpgrade "Lancement du script ${UPGRADE_SCRIPT} en utilisateur standard"
+        sudo ${UPGRADE_SCRIPT}
     fi
 done
 

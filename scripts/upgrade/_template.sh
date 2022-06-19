@@ -6,8 +6,10 @@ source /home/pi/voron/modules/_common.sh
 
 # Upgrade en root
 if [ '${whoami}' == 'root' ]; then
-
+    
 else 
 # Upgrade en user "pi"
 
 fi
+
+_logUpgrade "Fin de l'upgrade"

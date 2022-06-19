@@ -15,7 +15,7 @@ PI_PASSWORD=${PI_PASSWORD_DEFAULT}
 GIT_REPO="https://github.com/matthieuy/voron-script.git"
 
 # Versions
-VERSION_SCRIPT=2022060700
+VERSION_SCRIPT=2022071900
 YQ_VERSION="3.4.0"		         # Version de Yaml parser
 KLIPPER_CONF_VERSION="20220601"  # Fichier de configuration klipper
 
@@ -38,6 +38,7 @@ CMD_OCTO="/home/pi/oprint/bin/octoprint"
 PIP_BIN="/home/pi/oprint/bin/pip"
 VERSION_FILE="${SCRIPT_DIR}/out/CURRENT_VERSION.txt"
 VERSION_FILE_ROOT="${SCRIPT_DIR}/out/CURRENT_VERSION_ROOT.txt"
+LOG_UPGRADE="${SHARE_DIR}/upgrade-scripts.txt"
 GPIO_DIR="${SCRIPT_DIR}/gpio"
 
 
@@ -86,4 +87,9 @@ _synchroFile() {
     else
         cp -f "$2" "$1"
     fi
+}
+
+# Log des upgrades (txt)
+_logUpgrade() {
+  echo "$(date +%Y%m%d-%H:%M) : $1" >> ${LOG_UPGRADE}
 }

@@ -34,6 +34,7 @@ for FILE in $(ls upgrade); do
     fi
     if [ ${UPGRADE_VERSION} -ge ${CURRENT_VERSION} ]; then
 		echo "  => Lancement script v${UPGRADE_VERSION}"
+        _logUpgrade "Lancement du script ${UPGRADE_SCRIPT} en utilisateur root"
         ${SCRIPT_DIR}/upgrade/${UPGRADE_VERSION}.sh
     fi
 done

@@ -16,6 +16,7 @@ else
     
     # Remplacement du fichier octodash
     echo "Remplacement du fichier octodash"
+    _logUpgrade "Remplacement du fichier octodash"
     API_KEY=$(yq3 r ${CONF_OCTO} api.key)
     if [ "$API_KEY" != "" ]; then
     sed -i "s/API_KEY/${API_KEY}/g" ${DASH_DIR}/config.json
