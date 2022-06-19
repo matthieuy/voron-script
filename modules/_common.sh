@@ -22,7 +22,7 @@ KLIPPER_CONF_VERSION="20220601"  # Fichier de configuration klipper
 
 # Flash
 DEVICE="/dev/sdb"
-IMG="/home/matthieu/Temp/voron-backup/octopi-0.18.0-1.8.0-20220517112637.img"
+IMG="/home/matthieu/Temp/voron-backup/octopi-0.18.0-1.8.1-20220524101555.img"
 MOUNT_DIR="out/mount"
 BOOT_DIR="${MOUNT_DIR}/boot"
 ROOT_DIR="${MOUNT_DIR}/root"
