@@ -50,7 +50,7 @@ mkdir -p ${ROOT_DIR}${SHARE_DIR}
 mkdir -p ${ROOT_DIR}${SCRIPT_DIR}
 
 _log "=> Récupération des sources"
-rsync -a --progress ./ ${ROOT_DIR}${SCRIPT_DIR} --exclude out --exclude old
+rsync -qa --progress ./ ${ROOT_DIR}${SCRIPT_DIR} --exclude out --exclude old
 git -C ${ROOT_DIR}${SCRIPT_DIR} remote remove origin
 git -C ${ROOT_DIR}${SCRIPT_DIR} remote add origin ${GIT_REPO}
 git -C ${ROOT_DIR}${SCRIPT_DIR} branch --set-upstream-to=origin/main main

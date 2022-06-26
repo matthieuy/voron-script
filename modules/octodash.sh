@@ -44,7 +44,7 @@ rm /tmp/octodash.deb
 _log "  => Configuration"
 _log "    => API"
 mkdir -p ${DASH_DIR}
-cp -f ${SCRIPT_DIR}/conf/octodash/octodash.json.tpl ${DASH_DIR}/octodash.json
+cp -f ${SCRIPT_DIR}/conf/octodash/octodash.json.tpl ${DASH_DIR}/config.json
 API_KEY=$(yq3 r ${CONF_OCTO} api.key)
 if [ "$API_KEY" != "" ]; then
   sed -i "s/API_KEY/${API_KEY}/g" ${DASH_DIR}/config.json
