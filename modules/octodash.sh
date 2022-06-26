@@ -85,7 +85,7 @@ sleep 5
 # Rotation de l'écran
 _log "=> Rotation de l'écran"
 DISPLAY=:0 xrandr --output HDMI-1 --rotate inverted
-DISPLAY=:0 xrandr --output HDMI-2 --rotate normal
+DISPLAY=:0 xrandr --output HDMI-2 --rotate inverted
 XORG_CONF="/usr/share/X11/xorg.conf.d/40-libinput.conf"
 if [ -e ${XORG_CONF} ]; then
 	sudo cp -f ${XORG_CONF} ${XORG_CONF}.origin
