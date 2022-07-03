@@ -19,6 +19,7 @@ echo "Version actuelle : v${CURRENT_VERSION}"
 
 # Update des sources
 cd ${SCRIPT_DIR}
+git reset --hard -q
 git pull -q
 git log -n1 --oneline
 
