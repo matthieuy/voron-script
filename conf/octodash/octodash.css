@@ -5,5 +5,5 @@
 
 /** Hide print name **/
 .bottom-bar__printer-name {
-    color: #323846 !important;
+    display: none !important;
 }
