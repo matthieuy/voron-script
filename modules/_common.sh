@@ -15,7 +15,7 @@ PI_PASSWORD=${PI_PASSWORD_DEFAULT}
 GIT_REPO="https://github.com/matthieuy/voron-script.git"
 
 # Versions
-VERSION_SCRIPT=2022071902        # Bug de mois a rattraper
+VERSION_SCRIPT=2022071903
 YQ_VERSION="3.4.0"		           # Version de Yaml parser
 KLIPPER_CONF_VERSION="20220601"  # Fichier de configuration klipper
 
