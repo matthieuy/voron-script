@@ -65,12 +65,12 @@ def button_press(channel):
                 if VERBOSE:
                     print("Action : Halt")
                 if not DEBUG:
-                    subprocess.call(['shutdown -h now "Arret du systeme par bouton GPIO" &'], shell=True)
+                    subprocess.call(['sudo shutdown -h now "Arret du systeme par bouton GPIO" &'], shell=True)
             elif TIMER_PRESS > TIMER_REBOOT_RPI:
                 if VERBOSE:
                     print("Action : Reboot")
                 if not DEBUG:
-                    subprocess.call(['shutdown -r now "Reboot du systeme par bouton GPIO" &'], shell=True)
+                    subprocess.call(['sudo shutdown -r now "Reboot du systeme par bouton GPIO" &'], shell=True)
             elif TIMER_PRESS != 0:
                 if VERBOSE:
                     print("Press : " + str(TIMER_PRESS))
