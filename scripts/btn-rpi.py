@@ -16,7 +16,6 @@ VERBOSE = True
 # Pins
 PIN_BTN = 27 # GPIO27 or 13 physical
 PIN_LED = 17 # GPIO17 or 11 physical
-PIN_SSR = 18 # GPIO18 or 12 phyical
 
 # Interval
 TIMER_REBOOT_RPI = 2
@@ -65,12 +64,12 @@ def button_press(channel):
             elif TIMER_PRESS > TIMER_HALT_RPI:
                 if VERBOSE:
                     print("Action : Halt")
-                elif not DEBUG:
+                if not DEBUG:
                     subprocess.call(['shutdown -h now "Arret du systeme par bouton GPIO" &'], shell=True)
             elif TIMER_PRESS > TIMER_REBOOT_RPI:
                 if VERBOSE:
                     print("Action : Reboot")
-                elif not DEBUG:
+                if not DEBUG:
                     subprocess.call(['shutdown -r now "Reboot du systeme par bouton GPIO" &'], shell=True)
             elif TIMER_PRESS != 0:
                 if VERBOSE:
