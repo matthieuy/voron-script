@@ -31,7 +31,6 @@ INTERVAL_CHECK = 0.2
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(PIN_BTN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(PIN_LED, GPIO.OUT)
-GPIO.setup(PIN_SSR, GPIO.OUT)
 
 
 #################
