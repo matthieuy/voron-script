@@ -11,3 +11,11 @@
 
 # Upgrade des scripts (en root)
 @reboot root bash /home/pi/scripts/update-script-root.sh
+
+# Backup custom (juste avant les backups scheduler)
+## Backup journalier a 1h
+55 0 * * * pi bash /home/pi/scripts/backup-custom.sh
+## Backup hebdo le dimanche à 2h
+55 1 * * 7 pi bash /home/pi/scripts/backup-custom.sh
+## Backup mensuel le 1er a 2h
+55 1 1 * * pi bash /home/pi/scripts/backup-custom.sh

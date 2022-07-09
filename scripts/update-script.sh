@@ -23,24 +23,22 @@ git reset --hard -q
 git pull -q
 git log -n1 --oneline
 
-
-# Comparaison des versions
-NEW_VERSION_SCRIPT=$(cat /home/pi/voron/modules/_common.sh|grep VERSION_SCRIPT|cut -d= -f2)
-if [ ${CURRENT_VERSION} -ge ${NEW_VERSION_SCRIPT} ]; then
-	echo "Aucune mise à jour disponible"
-	exit 0
-fi
-echo "Mise à jour : v${CURRENT_VERSION} => v${NEW_VERSION_SCRIPT}"
-echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE}
-
-
 # On écrase les scripts
 echo "  => Scripts"
 cp -rf ${SCRIPT_DIR}/scripts/* ${HOME_DIR}/scripts/
 chmod +x ${HOME_DIR}/scripts/*
 
-# Synchro des fichiers
-echo "  => Configuration klipper"
+# Comparaison des versions
+NEW_VERSION_SCRIPT=$(cat /home/pi/voron/modules/_common.sh|grep VERSION_SCRIPT|cut -d= -f2)
+if [ ${CURRENT_VERSION} -ge ${NEW_VERSION_SCRIPT} ]; then
+	echo "Aucune mise à jour disponible"
+    _logUpgrade "Check upgrade : Aucune (${CURRENT_VERSION} / ${NEW_VERSION_SCRIPT})"
+	exit 0
+fi
+echo "Mise à jour : v${CURRENT_VERSION} => v${NEW_VERSION_SCRIPT}"
+echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE}
+_logUpgrade "Check upgrade : Dispo :${CURRENT_VERSION} => ${NEW_VERSION_SCRIPT}"
+
 
 # Lancement des scripts d'upgrade
 for FILE in $(ls upgrade); do
@@ -61,6 +59,8 @@ done
 echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE}
 if [ -e ${SCRIPT_DIR}/OUT/NEED_REBOOT ]; then
     echo "Mise à jour terminée : un reboot du Rpi est nécessaire !"
+    _logUpgrade "MàJ terminée : reboot nécessaire"
 else
     echo "Mise à jour terminée"
+    _logUpgrade "MàJ terminée"
 fi
