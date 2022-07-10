@@ -11,7 +11,7 @@
 @reboot pi bash /home/pi/scripts/init-gpio.sh
 
 # Btn RPI
-@reboot root python /home/pi/scripts/btn-rpi.py &
+@reboot pi python /home/pi/scripts/btn-rpi.py &
 
 # Upgrade des scripts (en root)
 @reboot root bash /home/pi/scripts/update-script-root.sh
