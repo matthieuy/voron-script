@@ -6,7 +6,7 @@ source /home/pi/voron/modules/_common.sh
 
 # Upgrade en root
 if [ '${whoami}' == 'root' ]; then
-
+    break
 else 
     # Upgrade en user "pi"
 
