@@ -20,9 +20,11 @@ rm -f ${SCRIPT_DIR}/out/NEED_REBOOT
 
 # Mise a jour crontab
 VORON_CRON="/etc/cron.d/voron-cron"
-rm ${VORON_CRON}
-cp -f ${SCRIPT_DIR}/conf/${VORON_CRON} ${VORON_CRON}
-chown root: ${VORON_CRON}
+if _md5Compare ${SCRIPT_DIR}/conf/${VORON_CRON} ${VORON_CRON} -eq 1; then
+    rm ${VORON_CRON}
+    cp -f ${SCRIPT_DIR}/conf/${VORON_CRON} ${VORON_CRON}
+    chown root: ${VORON_CRON}
+fi
 
 
 # Comparaison des versions
@@ -35,6 +37,7 @@ echo "Mise à jour : v${CURRENT_VERSION} => v${NEW_VERSION_SCRIPT}"
 echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE_ROOT}
 
 # Lancement des scripts d'upgrade
+let NB_UPGRADE=0
 for FILE in $(ls upgrade); do
     UPGRADE_VERSION=$(basename $FILE .sh)
     if [ "${UPGRADE_VERSION}" == "_template" ] || [ "${UPGRADE_VERSION}" == "UPGRADE_LIST.md" ]; then
@@ -45,12 +48,15 @@ for FILE in $(ls upgrade); do
         echo "  => Lancement script v${UPGRADE_VERSION}"
         _logUpgrade "Lancement du script ${UPGRADE_SCRIPT} en utilisateur root"
         bash ${UPGRADE_SCRIPT}
+        let "NB_UPGRADE += 1"
     fi
 done
 
 
 # Fin
 echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE_ROOT}
-_logUpgrade "MàJ root terminée"
+if [ ${NB_UPGRADE} -ge 0 ]; then
+    _logUpgrade "MàJ root terminée"
+fi
 echo "Mise à jour terminée"
 

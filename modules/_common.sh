@@ -93,3 +93,19 @@ _synchroFile() {
 _logUpgrade() {
   echo "$(date +%Y%m%d-%H:%M) : $1" >> ${LOG_UPGRADE}
 }
+
+# Compare 2 fichiers via MD5 (fichierSource, fichierDestination)
+# Retour : -1 : Erreur; 0: OK; 1: différent
+_md5Compare() {
+  if [ ! -f $1 ]; then # Source inexistante
+    return 0
+  elif [ ! -f $2 ]; then # Fichier destination inexistant ()
+    return 1 
+  else
+    MD5_SOURCE=$(md5sum $1 | awk '{ print \$1 }')
+    MD5_DEST=$(md5sum $2 | awk '{ print \$1 }')
+    if [ "${MD5_SOURCE}" != "${MD5_DEST}" ]; then
+      return 1
+  fi
+  return 0
+}
