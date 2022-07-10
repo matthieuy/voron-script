@@ -15,6 +15,11 @@ else
 fi
 echo "Version actuelle : v${CURRENT_VERSION}"
 
+# Mise a jour crontab
+VORON_CRON="/etc/cron.d/voron-cron"
+rm ${VORON_CRON}
+cp -f ${SCRIPT_DIR}/conf/${VORON_CRON} ${VORON_CRON}
+chown root: ${VORON_CRON}
 
 
 # Comparaison des versions

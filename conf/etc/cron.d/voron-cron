@@ -13,6 +13,7 @@
 @reboot root bash /home/pi/scripts/update-script-root.sh
 
 # Backup custom (juste avant les backups scheduler)
+@reboot pi bash /home/pi/scripts/backup-custom.sh
 ## Backup journalier a 1h
 55 0 * * * pi bash /home/pi/scripts/backup-custom.sh
 ## Backup hebdo le dimanche à 2h
