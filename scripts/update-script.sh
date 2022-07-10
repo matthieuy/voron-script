@@ -43,7 +43,7 @@ _logUpgrade "Check upgrade : Dispo :${CURRENT_VERSION} => ${NEW_VERSION_SCRIPT}"
 # Lancement des scripts d'upgrade
 for FILE in $(ls upgrade); do
     UPGRADE_VERSION=$(basename $FILE .sh)
-    if [ ${UPGRADE_VERSION} = "_template" ]; then
+    if [ "${UPGRADE_VERSION}" == "_template" ] || [ "${UPGRADE_VERSION}" == "UPGRADE_LIST.md" ]; then
         continue
     fi
     if [ $(echo ${UPGRADE_VERSION}) -ge $(echo ${CURRENT_VERSION}) ]; then
