@@ -37,10 +37,11 @@ for FILE in $(ls upgrade); do
     if [ ${UPGRADE_VERSION} = "_template" ]; then
         continue
     fi
-    if [ ${UPGRADE_VERSION} -ge ${CURRENT_VERSION} ]; then
+    if [ $(${UPGRADE_VERSION}) -ge $(${CURRENT_VERSION}) ]; then
+        UPGRADE_SCRIPT="/home/pi/scripts/upgrade/${UPGRADE_VERSION}.sh"
 		echo "  => Lancement script v${UPGRADE_VERSION}"
         _logUpgrade "Lancement du script ${UPGRADE_SCRIPT} en utilisateur root"
-        ${SCRIPT_DIR}/upgrade/${UPGRADE_VERSION}.sh
+        bash ${UPGRADE_SCRIPT}
     fi
 done
 
