@@ -15,6 +15,9 @@ else
 fi
 echo "Version actuelle : v${CURRENT_VERSION}"
 
+# Suppression du fichier de reboot nécessaire (il pourra être remis dans les scripts unitaires)
+rm -f ${SCRIPT_DIR}/out/NEED_REBOOT
+
 # Mise a jour crontab
 VORON_CRON="/etc/cron.d/voron-cron"
 rm ${VORON_CRON}
@@ -48,7 +51,6 @@ done
 
 # Fin
 echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE_ROOT}
-rm -f ${SCRIPT_DIR}/out/NEED_REBOOT
 _logUpgrade "MàJ root terminée"
 echo "Mise à jour terminée"
 
