@@ -1,5 +1,9 @@
 # m h  dom mon dow   user	command
 
+####################
+### Lors du boot ###
+####################
+
 # Synchro des fichiers
 @reboot pi bash /home/pi/scripts/synchro-file.sh
 
@@ -12,11 +16,18 @@
 # Upgrade des scripts (en root)
 @reboot root bash /home/pi/scripts/update-script-root.sh
 
+
+##############
+### Backup ###
 # Backup custom (juste avant les backups scheduler)
 @reboot pi bash /home/pi/scripts/backup-custom.sh
+
 ## Backup journalier a 1h
 55 0 * * * pi bash /home/pi/scripts/backup-custom.sh
+
 ## Backup hebdo le dimanche à 2h
 55 1 * * 7 pi bash /home/pi/scripts/backup-custom.sh
+
 ## Backup mensuel le 1er a 2h
 55 1 1 * * pi bash /home/pi/scripts/backup-custom.sh
+
