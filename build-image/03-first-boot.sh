@@ -101,8 +101,8 @@ sudo apt install -y tree zsh autojump fbi rsync hdparm sysbench
 
 # Crontab
 _log "  => Crontab"
-sudo ln -s ${SCRIPT_DIR}/conf/etc/cron.d/voron-cron /etc/cron.d/voron-cron
-sudo chmod +x /etc/cron.d/voron-cron
+sudo cp -f ${SCRIPT_DIR}/conf/etc/cron.d/voron-cron /etc/cron.d/voron-cron
+sudo chown root: /etc/cron.d/voron-cron
 
 
 # wiringPI
