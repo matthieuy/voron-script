@@ -15,7 +15,7 @@ PI_PASSWORD=${PI_PASSWORD_DEFAULT}
 GIT_REPO="https://github.com/matthieuy/voron-script.git"
 
 # Versions
-VERSION_SCRIPT=2022071907
+VERSION_SCRIPT=2022071908
 YQ_VERSION="3.4.0"		           # Version de Yaml parser
 KLIPPER_CONF_VERSION="20220601"  # Fichier de configuration klipper
 
@@ -106,6 +106,7 @@ _md5Compare() {
     MD5_DEST=$(md5sum $2 | awk '{ print \$1 }')
     if [ "${MD5_SOURCE}" != "${MD5_DEST}" ]; then
       return 1
+    fi
   fi
   return 0
 }
