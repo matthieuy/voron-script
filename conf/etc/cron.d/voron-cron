@@ -1,0 +1,31 @@
+# m h  dom mon dow   user	command
+
+####################
+### Lors du boot ###
+####################
+# Initialisation des GPIO
+@reboot pi bash /home/pi/scripts/gpio-init.sh
+
+# Btn RPI
+@reboot pi python /home/pi/scripts/btn-rpi.py &
+
+# Check des LEDs
+@reboot pi bash /home/pi/scripts/test-led.sh boot &
+
+# Synchro des fichier
+@reboot pi bash /home/pi/scripts/synchro-file.sh &
+
+##############
+### Backup ###
+##############
+# Backup custom (juste avant les backups scheduler)
+@reboot pi bash /home/pi/scripts/backup-custom.sh
+
+# Backup journalier a 1h
+55 0 * * * pi bash /home/pi/scripts/backup-custom.sh
+
+# Backup hebdo le dimanche à 2h
+55 1 * * 7 pi bash /home/pi/scripts/backup-custom.sh
+
+# Backup mensuel le 1er a 2h
+55 1 1 * * pi bash /home/pi/scripts/backup-custom.sh

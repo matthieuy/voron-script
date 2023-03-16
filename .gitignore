@@ -1,0 +1,5 @@
+conf/octopi-wpa-supplicant.txt
+conf/rescue-mdp
+old
+out/*
+!out/.gitkeep

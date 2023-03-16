@@ -1,0 +1,1 @@
+# Ce fichier contient les macros additionnels de Klipper
