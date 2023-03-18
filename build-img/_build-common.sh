@@ -19,7 +19,7 @@ if [ "$(whoami)" == "root" ]; then
 fi
 
 # Check dossier
-if [ -z "$(pwd)/.voron-root" ]; then  # TODO : Change this file with a required
+if [ -z "$(pwd)/.voron-root" ]; then
     echo "Lancer ce script depuis la racine du projet !"
     exit 2
 fi

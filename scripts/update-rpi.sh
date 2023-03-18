@@ -20,7 +20,9 @@ sudo apt full-upgrade -y  | tee -a ${APT_PID}
 sudo apt autoremove -y | tee -a ${APT_PID}
 echo -e "\nUpgrade terminé" | tee -a ${APT_PID}
 
-# TODO : Mettre à jour le code git
+# Mettre à jour le code git
+git -C ${SCRIPT_DIR} pull origin master
+
 
 # Exit
 rm ${APT_PID}

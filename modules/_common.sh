@@ -12,17 +12,23 @@ SCRIPT_DIR="${HOME_DIR}/voron"
 KLIPPER_DIR="${HOME_DIR}/klipper"
 SHARE_DIR="${HOME_DIR}/.octoprint/uploads/system"
 DASH_DIR="${HOME_DIR}/home/pi/.config/octodash"
+CONF_OCTO="${HOME_DIR}/.octoprint/config.yaml"
+
+# Executable
+CMD_OCTO="${HOME_DIR}/oprint/bin/octoprint"
 
 # Version
 VERSION_SCRIPT=2023031600
 VERSION_FILE="${SCRIPT_DIR}/out/CURRENT_VERSION.txt"
 VERSION_FILE_ROOT="${SCRIPT_DIR}/out/CURRENT_VERSION_ROOT.txt"
 
-
 # Couleurs
 CYAN="\033[1;36m"
 NC="\033[0m"
 RED="\033[1;31m"
+
+# Autres
+USERNAME="voron"
 
 #################
 ### FONCTIONS ###
@@ -40,4 +46,12 @@ _synchroFile() {
     else
         cp -f "$2" "$1"
     fi
+}
+
+# Configuration octoprint.yml (parametre, valeur, [texte log])
+_config() {
+  if [ ! -z "$3" ]; then
+    _log "  => $3"
+  fi
+  yq3 w -i ${CONF_OCTO} $1 "$2"
 }

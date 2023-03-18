@@ -50,7 +50,7 @@ rsync -qa --progress ./ ${ROOT_DIR}${SCRIPT_DIR} --exclude out --exclude old
 git -C ${ROOT_DIR}${SCRIPT_DIR} remote remove origin
 git -C ${ROOT_DIR}${SCRIPT_DIR} remote add origin ${GIT_REPO}
 git -C ${ROOT_DIR}${SCRIPT_DIR} branch --set-upstream-to=origin/main main
-# TODO Faire un git pull ?
+git -C ${ROOT_DIR}${SCRIPT_DIR} pull origin master
 
 _log "=> Applications des droits"
 cp -rf ${ROOT_DIR}${SCRIPT_DIR}/scripts/* ${ROOT_DIR}${HOME_DIR}/scripts/

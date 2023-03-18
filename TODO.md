@@ -2,11 +2,6 @@ TODO
 ====
 
 * [ ] Premier boot :
-    * [ ] Mettre à jour les scripts via git
-    * [ ] Klipper :
-        * [ ] Mettre à jour les sources
-        * [ ] Compiler
-        * [ ] Copier le firmware pour pouvoir le récupérer via l'interface octoprint
     * [ ] Configurer octoprint :
         * [ ] (TODO à rédiger)
     * [ ] Splashscreen :
@@ -22,37 +17,18 @@ TODO
             * [ ] Voron 2
         * [ ] Script de mise à jour auto
     * [ ] ADXL (Accéléromètre) :
-        * [ ] Récupération des sources
-        * [ ] Compilation
+        * [X] Récupération des sources
+        * [X] Compilation
         * [ ] Configuration
-    * [ ] Fin du premier boot :
-        * [ ] Nettoyage des dépôts
-        * [ ] Suppression des paquets inutiles
 * [ ] Scripts :
-    * [X] Bouton à l'arrière :
-        * [X] Refaire le script
-        * [X] Intégrer la led bicolor
-        * [X] Lancement au boot
     * [ ] Klipper :
-        * [ ] Redémarrer klipper
+        * [X] Redémarrer klipper
         * [ ] Mettre à jour klipper :
-            * [ ] Mettre à jour les sources
-            * [ ] Compiler
-            * [ ] Copier le firmware dans le dossier de partage
+            * [X] Mettre à jour les sources
+            * [X] Compiler
+            * [X] Copier le firmware dans le dossier de partage
             * [ ] Tester via [l'outil utilisé par Jermtek](https://github.com/th33xitus/kiauh)
-    * [X] Test des leds :
-        * [X] Classique
-        * [X] Lors du boot pour check les LED
-* [ ] Crontab (tâches planifiées) :
-    * [ ] Synchro des fichiers entre dossier de partage/système
-    * [ ] Backup des fichiers custom (avant le backup système) :
-        * [ ] Faire le script
-        * [ ] Planifier juste avant
-        * [ ] Fichiers à backup :
-            * [ ] Conf octodash
 * [ ] Màj :
-    * [ ] Script pour mettre à jour le RPI
-    * [ ] Script pour OZH
     * [ ] Script pour octodash
     * [ ] Script pour octoprint
     * [ ] Script pour mettre à jour les scripts git custom :

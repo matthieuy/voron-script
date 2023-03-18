@@ -87,7 +87,11 @@ sudo sed -i 's/^XKBLAYOUT="gb"$/XKBLAYOUT="fr"/' /etc/default/keyboard
 sudo sed -i 's/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/' /etc/locale.gen
 sudo locale-gen
 
-# TODO Update script avec github
+# Update script avec github
+_log "=> MàJ github des scripts"
+git -C ${SCRIPT_DIR} branch --set-upstream-to=origin/master master
+git -C ${SCRIPT_DIR} reset --hard
+
 
 ###############
 ### UPGRADE ###
@@ -105,6 +109,8 @@ sudo apt --fix-broken install -y
 _log "=> Installation de paquets de base"
 sudo apt install -y tree zsh autojump fbi rsync hdparm sysbench ncdu
 sudo apt install -y --no-install-recommends nodejs npm
+sudo npm i npm@latest forever -g
+npm install --suppess-warnings
 
 # wiringPI
 _log "=> WiringPI"
@@ -130,8 +136,19 @@ sudo chmod +x /etc/cron.d/voron-cron
 _log "=> Klipper"
 . ${SCRIPT_DIR}/scripts/update-klipper.sh
 
-# TODO : Configurer octoprint
-# TODO : Splashscreen
+# Configurer octoprint
+. ${SCRIPT_DIR}/modules/conf-octoprint.sh
+
+
+# Splashscreen
+_log "=> SplashScreen"
+mkdir -p /etc/systemd/system/
+sudo cp ${SCRIPT_DIR}/conf/etc/systemd/system/splashscreen.service /etc/systemd/system/splashscreen.service
+cp ${SCRIPT_DIR}/conf/splashscreen/splashscreen.png ${SHARE_DIR}/splashscreen.png
+sudo systemctl disable getty@tty3
+sudo systemctl enable splashscreen
+
+
 # TODO : Octodash
 
 # ADXL
@@ -140,7 +157,13 @@ _log "=> Klipper"
 # Redémarrage d'octo
 _log "=> Octoprint : redémarrage"
 sudo service octoprint restart
-sleep 5
+sleep 30
+
+# Update octoprint
+. ${SCRIPT_DIR}/scripts/update-octoprint.sh
+
+_log "=> Backup post-installation"
+${CMD_OCTO} plugins backup:backup
 
 # Fin de l'installation => Nettoyage
 _log "=> Fin de l'installation : Nettoyage"
