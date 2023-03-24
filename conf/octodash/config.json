@@ -1,0 +1,145 @@
+{
+	"config": {
+		"octoprint": {
+			"url": "http://localhost:5000/",
+			"accessToken": "API_KEY"
+		},
+		"printer": {
+			"name": "Voron",
+			"xySpeed": 150,
+			"zSpeed": 5,
+			"disableExtruderGCode": "M18 E",
+			"zBabystepGCode": "M290 Z",
+			"defaultTemperatureFanSpeed": {
+				"hotend": 200,
+				"heatbed": 60,
+				"fan": 100
+			}
+		},
+		"filament": {
+			"thickness": 1.75,
+			"density": 1.25,
+			"feedLength": 0,
+			"feedSpeed": 20,
+			"feedSpeedSlow": 3,
+			"purgeDistance": 30,
+			"useM600": false
+		},
+		"plugins": {
+			"displayLayerProgress": {
+				"enabled": true
+			},
+			"enclosure": {
+				"enabled": true,
+				"ambientSensorID": 3,
+				"filament1SensorID": null,
+				"filament2SensorID": null
+			},
+			"filamentManager": {
+				"enabled": false
+			},
+			"preheatButton": {
+				"enabled": true
+			},
+			"printTimeGenius": {
+				"enabled": true
+			},
+			"psuControl": {
+				"enabled": false,
+				"turnOnPSUWhenExitingSleep": false
+			},
+			"tpLinkSmartPlug": {
+				"enabled": false,
+				"smartPlugIP": "127.0.0.1"
+			},
+			"tasmota": {
+				"enabled": false,
+				"ip": "127.0.0.1",
+				"index": null
+			},
+			"tasmotaMqtt": {
+				"enabled": false,
+				"topic": "topic",
+				"relayNumber": null
+			},
+			"spoolManager": {
+				"enabled": false
+			},
+			"ophom": {
+				"enabled": false
+			}
+		},
+		"octodash": {
+			"customActions": [
+				{
+					"color": "#dcdde1",
+					"command": "G28",
+					"confirm": false,
+					"exit": false,
+					"icon": "home"
+				},
+				{
+					"color": "#0b45b5",
+					"command": "PARK",
+					"confirm": false,
+					"exit": true,
+					"icon": "parking"
+				},
+				{
+					"color": "#00ff29",
+					"command": "M106 S255",
+					"confirm": false,
+					"exit": false,
+					"icon": "fan"
+				},
+				{
+					"color": "#ff0800",
+					"command": "M106 S0",
+					"confirm": false,
+					"exit": false,
+					"icon": "fan"
+				},
+				{
+					"color": "#f943ac",
+					"command": "G32",
+					"confirm": true,
+					"exit": false,
+					"icon": "layer-group"
+				},
+				{
+					"color": "#e61a07",
+					"command": "FIRMWARE_RESTART",
+					"confirm": true,
+					"exit": false,
+					"icon": "sync"
+				},
+				{
+					"color": "#ffd210",
+					"command": "CLEAN",
+					"confirm": true,
+					"exit": false,
+					"icon": "shower"
+				}
+			],
+			"fileSorting": {
+				"attribute": "name",
+				"order": "asc"
+			},
+			"invertAxisControl": {
+				"x": false,
+				"y": false,
+				"z": false
+			},
+			"pollingInterval": 2000,
+			"touchscreen": true,
+			"turnScreenOffWhileSleeping": false,
+			"turnOnPrinterWhenExitingSleep": false,
+			"preferPreviewWhilePrinting": true,
+			"previewProgressCircle": true,
+			"screenSleepCommand": "xset dpms force standby",
+			"screenWakeupCommand": "xset s off && xset -dpms && xset s noblank",
+			"showExtruderControl": true,
+			"showNotificationCenterIcon": true
+		}
+	}
+}

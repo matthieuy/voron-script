@@ -135,10 +135,12 @@ sudo chmod +x /etc/cron.d/voron-cron
 # Klipper
 _log "=> Klipper"
 . ${SCRIPT_DIR}/scripts/update-klipper.sh
+_plugins "Klipper" "https://github.com/AliceGrey/OctoprintKlipperPlugin/archive/master.zip"
+_config plugins.klipper.configuration.reload_command FIRMWARE_RESTART
+_config plugins.klipper.connection.replace_connection_panel false
 
 # Configurer octoprint
 . ${SCRIPT_DIR}/modules/conf-octoprint.sh
-
 
 # Splashscreen
 _log "=> SplashScreen"
@@ -148,8 +150,9 @@ cp ${SCRIPT_DIR}/conf/splashscreen/splashscreen.png ${SHARE_DIR}/splashscreen.pn
 sudo systemctl disable getty@tty3
 sudo systemctl enable splashscreen
 
-
-# TODO : Octodash
+# Octodash
+. ${SCRIPT_DIR}/modules/octodash.sh
+sleep 5
 
 # ADXL
 . ${SCRIPT_DIR}/modules/adxl.sh

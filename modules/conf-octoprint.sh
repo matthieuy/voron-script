@@ -36,6 +36,11 @@ _log "  => Désactivation des plugins inutiles"
 _config plugins._disabled[0] errortracking "ErrorTracking"
 _config plugins._disabled[1] cura "Cura"
 
+_log "  => Connexion automatique de l'imprimante"
+_config serial.autoconnect true
+_config serial.baudrate 250000
+_config serial.port /tmp/printer
+
 # Création d'un utilisateur octprint
 _log "=> Ajout d'un utilisateur ${USERNAME}"
 ${CMD_OCTO} user add --password "${USERNAME}" --admin ${USERNAME} > /dev/null

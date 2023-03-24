@@ -49,7 +49,7 @@ _log "=> Récupération des sources"
 rsync -qa --progress ./ ${ROOT_DIR}${SCRIPT_DIR} --exclude out --exclude old
 git -C ${ROOT_DIR}${SCRIPT_DIR} remote remove origin
 git -C ${ROOT_DIR}${SCRIPT_DIR} remote add origin ${GIT_REPO}
-git -C ${ROOT_DIR}${SCRIPT_DIR} branch --set-upstream-to=origin/main main
+git -C ${ROOT_DIR}${SCRIPT_DIR} branch --set-upstream-to=origin/master master
 git -C ${ROOT_DIR}${SCRIPT_DIR} pull origin master
 
 _log "=> Applications des droits"
@@ -152,6 +152,8 @@ cp -f conf/klipper/makeconfig.txt ${ROOT_DIR}${SHARE_DIR}/klipper-makeconfig.txt
 cp -f conf/klipper/klipper-macro.txt ${ROOT_DIR}${SHARE_DIR}/klipper-macro.txt
 cp -f conf/klipper/klipper-static.txt ${ROOT_DIR}${SHARE_DIR}/klipper-static.txt
 cp -f conf/klipper/printer.cfg ${ROOT_DIR}${HOME_DIR}/printer.cfg
+cp -f conf/etc/default/klipper ${ROOT_DIR}/etc/default/klipper
+touch ${ROOT_DIR}${SHARE_DIR}/variables.txt
 
 _log "=> Scripts de MàJ"
 _log " => Droits"
@@ -165,7 +167,7 @@ echo ${VERSION_SCRIPT} > ${ROOT_DIR}${VERSION_FILE_ROOT}
 # Fin de la préparation
 _log "=> Fin de la préparation de la carte SD"
 read -p "Démontage des partitions [Y/n] ?" CONFIRM
-if [ "${CONFIRM}" != "n" ] && [ "${CONFIRM}" != "N" ]; then
+if [[ "${CONFIRM}" != "n" ] && [ "${CONFIRM}" != "N" ]]; then
   _log "  => Boot"
   sudo umount ${BOOT_DIR}
   rmdir ${BOOT_DIR}

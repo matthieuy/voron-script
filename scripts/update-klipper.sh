@@ -14,7 +14,6 @@ if [ -e ${KLIPPER_PID} ]; then
 fi
 echo "Compilation en cours" > ${KLIPPER_PID}
 
-
 # Pull
 git pull
 

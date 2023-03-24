@@ -25,7 +25,7 @@ enable_force_move: True
 
 #### VARIABLES ####
 [save_variables]
-filename: .octoprint/uploads/system/variables.txt
+filename: /home/pi/.octoprint/uploads/system/variables.txt
 
 
 #### RESPOND ####

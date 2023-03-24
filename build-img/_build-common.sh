@@ -73,6 +73,7 @@ _umount_device() {
     fi
 }
 
+# Ajouter si inexistant (fichier, pattern)
 _add_to_file_if_doesnt_exist() {
     if [ $(cat $1 | grep "$2" | wc -l) -eq 0 ]; then
         echo "$2" >> $1

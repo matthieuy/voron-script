@@ -16,6 +16,7 @@ CONF_OCTO="${HOME_DIR}/.octoprint/config.yaml"
 
 # Executable
 CMD_OCTO="${HOME_DIR}/oprint/bin/octoprint"
+PIP_BIN="${HOME_DIR}/oprint/bin/pip"
 
 # Version
 VERSION_SCRIPT=2023031600
@@ -54,4 +55,10 @@ _config() {
     _log "  => $3"
   fi
   yq3 w -i ${CONF_OCTO} $1 "$2"
+}
+
+# Installation d'un plugin octoprint (nom, url_git)
+_plugins() {
+    _log "  => $1"
+    $PIP_BIN install -q --disable-pip-version-check $2
 }

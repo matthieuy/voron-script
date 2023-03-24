@@ -1,0 +1,8 @@
+# Configuration for /etc/init.d/klipper
+
+KLIPPY_USER=pi
+
+KLIPPY_EXEC=/home/pi/klippy-env/bin/python
+
+KLIPPY_ARGS="/home/pi/klipper/klippy/klippy.py /home/pi/printer.cfg -a /tmp/klippy_uds -l /tmp/klippy.log"
+
