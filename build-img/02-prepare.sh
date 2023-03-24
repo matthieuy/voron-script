@@ -25,7 +25,7 @@ fi
 
 # Copie du fichier Wifi
 if [ -f ${WIFI_CONF} ]; then
-    _log " => Copie du fichier de configuration Wifi"
+    _log "=> Copie du fichier de configuration Wifi"
     sudo cp -f ${WIFI_CONF} ${BOOT_DIR}/octopi-wpa-supplicant.txt
 else
     echo -e "${RED}/!\ Pas de fichier de configuration Wifi detecte !${NC}"
@@ -49,7 +49,7 @@ _log "=> Récupération des sources"
 rsync -qa --progress ./ ${ROOT_DIR}${SCRIPT_DIR} --exclude out --exclude old
 git -C ${ROOT_DIR}${SCRIPT_DIR} remote remove origin
 git -C ${ROOT_DIR}${SCRIPT_DIR} remote add origin ${GIT_REPO}
-git -C ${ROOT_DIR}${SCRIPT_DIR} branch --set-upstream-to=origin/master master
+git -C ${ROOT_DIR}${SCRIPT_DIR} checkout master
 git -C ${ROOT_DIR}${SCRIPT_DIR} pull origin master
 
 _log "=> Applications des droits"
@@ -152,7 +152,7 @@ cp -f conf/klipper/makeconfig.txt ${ROOT_DIR}${SHARE_DIR}/klipper-makeconfig.txt
 cp -f conf/klipper/klipper-macro.txt ${ROOT_DIR}${SHARE_DIR}/klipper-macro.txt
 cp -f conf/klipper/klipper-static.txt ${ROOT_DIR}${SHARE_DIR}/klipper-static.txt
 cp -f conf/klipper/printer.cfg ${ROOT_DIR}${HOME_DIR}/printer.cfg
-cp -f conf/etc/default/klipper ${ROOT_DIR}/etc/default/klipper
+sudo cp -f conf/etc/default/klipper ${ROOT_DIR}/etc/default/klipper
 touch ${ROOT_DIR}${SHARE_DIR}/variables.txt
 
 _log "=> Scripts de MàJ"
@@ -167,7 +167,7 @@ echo ${VERSION_SCRIPT} > ${ROOT_DIR}${VERSION_FILE_ROOT}
 # Fin de la préparation
 _log "=> Fin de la préparation de la carte SD"
 read -p "Démontage des partitions [Y/n] ?" CONFIRM
-if [[ "${CONFIRM}" != "n" ] && [ "${CONFIRM}" != "N" ]]; then
+if [ "${CONFIRM}" != "n" ] && [ "${CONFIRM}" != "N" ]; then
   _log "  => Boot"
   sudo umount ${BOOT_DIR}
   rmdir ${BOOT_DIR}
@@ -175,8 +175,8 @@ if [[ "${CONFIRM}" != "n" ] && [ "${CONFIRM}" != "N" ]]; then
   sudo umount ${ROOT_DIR}
   rmdir ${ROOT_DIR}
   _log "  => Synchro (etape un peu longue)"
-  sudo sync
 fi
+sudo sync
 
 echo "Une fois le Raspberry démarré :"
 echo " Lancez via SSH avec l'utilisateur pi :"

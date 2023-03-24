@@ -18,12 +18,13 @@ read -p "Confirmation [Y/n] ?" ANSWER
 if [ "${ANSWER}" == "n" ]; then
     exit 2
 fi
+echo ""
 
 # Demontage des partitions
 _umount_device
 
 # Flash de la SD
-echo " => Lancement du flash de la microSD"
+echo "=> Lancement du flash de la microSD"
 sudo dd if=${IMG} of=${DEVICE} status=progress
 echo " => Synchro"
 sudo sync
