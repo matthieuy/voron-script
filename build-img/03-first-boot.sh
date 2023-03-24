@@ -91,6 +91,8 @@ sudo locale-gen
 _log "=> MàJ github des scripts"
 git -C ${SCRIPT_DIR} branch --set-upstream-to=origin/master master
 git -C ${SCRIPT_DIR} reset --hard
+chmod +x ${SCRIPT_DIR}/scripts/*
+chmod +x ${SCRIPT_DIR}/modules/*
 
 
 ###############

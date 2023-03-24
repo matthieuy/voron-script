@@ -174,12 +174,14 @@ if [ "${CONFIRM}" != "n" ] && [ "${CONFIRM}" != "N" ]; then
   _log "  => Root"
   sudo umount ${ROOT_DIR}
   rmdir ${ROOT_DIR}
-  _log "  => Synchro (etape un peu longue)"
 fi
+_log "  => Synchro (etape un peu longue)"
 sudo sync
 
+echo ""
 echo "Une fois le Raspberry démarré :"
 echo " Lancez via SSH avec l'utilisateur pi :"
 echo "cd ~/voron"
 echo "./build-img/03-first-boot.sh"
+echo ""
 exit 0
