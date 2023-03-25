@@ -77,14 +77,11 @@ sudo service octoprint stop
 
 # Timezone
 _log "  => Timezone"
-echo "Europe/Paris" | sudo tee /etc/timezone > /dev/null
 sudo rm /etc/localtime
 sudo ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
 
 # Génération du support clavier
 _log "=> Passage en français"
-sudo sed -i 's/^XKBLAYOUT="gb"$/XKBLAYOUT="fr"/' /etc/default/keyboard
-sudo sed -i 's/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/' /etc/locale.gen
 sudo locale-gen
 
 # Update script avec github
@@ -110,15 +107,19 @@ sudo apt --fix-broken install -y
 # Installation globale
 _log "=> Installation de paquets de base"
 sudo apt install -y tree zsh autojump fbi rsync hdparm sysbench ncdu
-sudo apt install -y --no-install-recommends nodejs npm
+
+# Node
+curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash -
+sudo apt install -y --no-install-recommends nodejs
 sudo npm i npm@latest forever -g
-npm install --suppess-warnings
+
 
 # wiringPI
 _log "=> WiringPI"
-wget https://project-downloads.drogon.net/wiringpi-latest.deb -O /tmp/wiringpi.deb
-sudo dpkg -i /tmp/wiringpi.deb
-rm -f /tmp/wiringpi.deb
+git clone https://github.com/WiringPi/WiringPi.git ~/wiringpi
+cd ~/wiringpi && sudo ./build && cd ~
+rm -rf ~/wiringpi
+
 
 # Oh my ZSH
 _log "=> Oh my ZSH"

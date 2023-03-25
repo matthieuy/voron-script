@@ -30,7 +30,7 @@ fi
 
 # Compile
 make
-cp -f ${KLIPPER_DIR}/out/klipper.bin ${SHARE_DIR}
+cp -f ${KLIPPER_DIR}/out/klipper.bin ${SHARE_DIR}/firmware.bin
 
 # Exit
 rm ${KLIPPER_PID}
