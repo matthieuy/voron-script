@@ -34,5 +34,4 @@ cp -f ${KLIPPER_DIR}/out/klipper.bin ${SHARE_DIR}/firmware.bin
 
 # Exit
 rm ${KLIPPER_PID}
-echo "\nCompilation terminée"
-exit 0
+echo -e "\nCompilation terminée"

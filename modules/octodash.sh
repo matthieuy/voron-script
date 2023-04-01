@@ -12,7 +12,7 @@ _log "=> OctoDash"
 ### PRE-REQUIS ###
 ##################
 _log "  => Pré-requis"
-sudo apt install -q -y gir1.2-gnomekeyring-1.0 libgtk-3-0 libnotify4 libnss3 libxss1 libxtst6 xdg-utils libatspi2.0-0 libuuid1 libappindicator3-1 libsecret-1-0 xserver-xorg ratpoison x11-xserver-utils xinit libgtk-3-0 bc desktop-file-utils libavahi-compat-libdnssd1 libpam0g-dev libx11-dev
+sudo apt install -q -y libgtk-3-0 libnotify4 libnss3 libxss1 libxtst6 xdg-utils libatspi2.0-0 libuuid1 libappindicator3-1 libsecret-1-0 xserver-xorg ratpoison x11-xserver-utils xinit libgtk-3-0 bc desktop-file-utils libavahi-compat-libdnssd1 libpam0g-dev libx11-dev
 
 
 ##################
@@ -79,8 +79,10 @@ sudo systemctl set-default multi-user.target
 sudo mkdir -p /etc/systemd/system/getty.target.wants
 sudo ln -fs /lib/systemd/system/getty@.service /etc/systemd/system/getty.target.wants/getty@tty1.service
 sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
-sudo cp -f ${SCRIPT_DIR}/conf/etc/systemd/getty@tty1.service.d/autologin.conf /etc/systemd/getty@tty1.service.d/autologin.conf
-sudo chmod ug+s /usr/lib/xorg/Xorg
+sudo cp -f ${SCRIPT_DIR}/conf/etc/systemd/getty@tty1.service.d/autologin.conf /etc/systemd/system/getty@tty1.service.d/autologin.conf
+if [ -e /usr/lib/xorg/Xorg ]; then
+    sudo chmod ug+s /usr/lib/xorg/Xorg
+fi
 
 
 # Plugins

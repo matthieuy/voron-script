@@ -6,7 +6,7 @@ source /home/pi/voron/modules/_common.sh
 
 _log "=> ADXL : Compilation"
 sudo echo "" > /dev/null
-${HOME_DIR}/klippy-env/bin/pip install -v numpy
-sudo apt install -y --no-install-recommends python-numpy python-matplotlib
+sudo apt install -y --no-install-recommends python3-numpy python3-matplotlib libatlas-base-dev
+${HOME_DIR}/klippy-env/bin/pip install -v numpy 
 
 exit 0

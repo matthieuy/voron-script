@@ -5,7 +5,11 @@ CHANGELOG
   * Test en cours
 
 ----------------------------------------------------
-
+* 2023040100 :
+  * Correction de plusieurs bug lors du 1er boot :
+    * Compilation Kilpper qui stop le script
+    * ADXL : Mise à jour vers python3
+    * Octodash : Problème de lien systemd + mise à jour des scripts
 * 2023032500 :
   * Klipper : 
     * Configuration du /etc/default/klipper

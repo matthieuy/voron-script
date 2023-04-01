@@ -109,6 +109,7 @@ _log "=> Installation de paquets de base"
 sudo apt install -y tree zsh autojump fbi rsync hdparm sysbench ncdu
 
 # Node
+_log "NodeJS"
 curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash -
 sudo apt install -y --no-install-recommends nodejs
 sudo npm i npm@latest forever -g
@@ -116,7 +117,9 @@ sudo npm i npm@latest forever -g
 
 # wiringPI
 _log "=> WiringPI"
+_log "  => Récupération des sources"
 git clone https://github.com/WiringPi/WiringPi.git ~/wiringpi
+_log "  => Compilation"
 cd ~/wiringpi && sudo ./build && cd ~
 rm -rf ~/wiringpi
 
@@ -137,6 +140,7 @@ sudo chmod +x /etc/cron.d/voron-cron
 
 # Klipper
 _log "=> Klipper"
+git config pull.rebase false
 . ${SCRIPT_DIR}/scripts/update-klipper.sh
 _plugins "Klipper" "https://github.com/AliceGrey/OctoprintKlipperPlugin/archive/master.zip"
 _config plugins.klipper.configuration.reload_command FIRMWARE_RESTART
