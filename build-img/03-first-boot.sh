@@ -96,6 +96,7 @@ sudo locale-gen
 
 # Update script avec github
 _log "=> MàJ github des scripts"
+git config --global pull.rebase false
 git -C ${SCRIPT_DIR} branch --set-upstream-to=origin/master master
 git -C ${SCRIPT_DIR} reset --hard
 chmod +x ${SCRIPT_DIR}/scripts/*
