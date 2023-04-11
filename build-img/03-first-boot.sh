@@ -102,6 +102,7 @@ _log "  => Dépôt"
 sudo apt update -q -y
 _log "  => Système"
 sudo apt full-upgrade -y
+_log "  => Fix install"
 sudo apt --fix-broken install -y
 
 # Installation globale
@@ -162,12 +163,13 @@ sudo systemctl enable splashscreen
 sleep 5
 
 # ADXL
-. ${SCRIPT_DIR}/modules/adxl.sh
+#. ${SCRIPT_DIR}/modules/adxl.sh
 
 # Redémarrage d'octo
 _log "=> Octoprint : redémarrage"
 sudo service octoprint restart
 sleep 30
+# TODO remplacer sleep par script d'attente
 
 # Update octoprint
 . ${SCRIPT_DIR}/scripts/update-octoprint.sh
