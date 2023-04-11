@@ -11,7 +11,7 @@ HOME_DIR="/home/pi"
 SCRIPT_DIR="${HOME_DIR}/voron"
 KLIPPER_DIR="${HOME_DIR}/klipper"
 SHARE_DIR="${HOME_DIR}/.octoprint/uploads/system"
-DASH_DIR="${HOME_DIR}/home/pi/.config/octodash"
+DASH_DIR="${HOME_DIR}/.config/octodash"
 CONF_OCTO="${HOME_DIR}/.octoprint/config.yaml"
 SCREEN_CONF="/boot/screen.txt"
 

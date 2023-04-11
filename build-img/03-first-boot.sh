@@ -39,10 +39,11 @@ if [ $? -ne 0 ]; then
 fi
 
 # Demande de l'écran
-echo -e "1°) OBI\n2°) VEVER\nQuel est l'écran ? "
+echo -e "\n\n1°) OBI\n2°) VEVER\nQuel est l'écran ? "
 read SCREEN
-if [ "${SCREEN}" == "1" || ${SCREEN} == "2" ]; then
+if [ "${SCREEN}" == "1" ] || [ "${SCREEN}" == "2" ]; then
   echo "${SCREEN}" | sudo tee ${SCREEN_CONF} > /dev/null
+  chmod 755 ${SCREEN_CONF}
 else
   echo "Ecran non supporté"
   exit 2
