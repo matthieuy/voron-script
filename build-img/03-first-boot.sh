@@ -38,6 +38,16 @@ if [ $? -ne 0 ]; then
 	exit 2
 fi
 
+# Demande de l'écran
+echo -e "1°) OBI\n2°) VEVER\nQuel est l'écran ? "
+read SCREEN
+if [ "${SCREEN}" == "1" || ${SCREEN} == "2" ]; then
+  echo "${SCREEN}" | sudo tee ${SCREEN_CONF} > /dev/null
+else
+  echo "Ecran non supporté"
+  exit 2
+fi
+
 # Changement du mdp
 if [ "${PI_PASSWORD}" == "${PI_PASSWORD_DEFAULT}" ]; then
 until [ "${PI_PASSWORD}" != "${PI_PASSWORD_DEFAULT}" ]; do
@@ -141,7 +151,7 @@ sudo chmod +x /etc/cron.d/voron-cron
 
 # Klipper
 _log "=> Klipper"
-git config pull.rebase false
+git -C ${KLIPPER_DIR} config pull.rebase false
 . ${SCRIPT_DIR}/scripts/update-klipper.sh
 _plugins "Klipper" "https://github.com/AliceGrey/OctoprintKlipperPlugin/archive/master.zip"
 _config plugins.klipper.configuration.reload_command FIRMWARE_RESTART

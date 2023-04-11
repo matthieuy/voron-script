@@ -84,6 +84,12 @@ if [ -e /usr/lib/xorg/Xorg ]; then
     sudo chmod ug+s /usr/lib/xorg/Xorg
 fi
 
+# Rotation de l'écran du boot
+SCREEN=$(cat ${SCREEN_CONF})
+if [ "${SCREEN}" == "VEVER" ]; then
+    _log "Rotation de l'écran au boot (écran : ${SCREEN})"
+    sudo sed -i "s/rootwait/rootwait fbcon=rotate:2/" /boot/cmdline.txt
+fi
 
 # Plugins
 _plugins "Plugins" "https://github.com/jneilliii/OctoPrint-OctoDashCompanion/archive/master.zip"

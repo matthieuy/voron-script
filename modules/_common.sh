@@ -13,6 +13,7 @@ KLIPPER_DIR="${HOME_DIR}/klipper"
 SHARE_DIR="${HOME_DIR}/.octoprint/uploads/system"
 DASH_DIR="${HOME_DIR}/home/pi/.config/octodash"
 CONF_OCTO="${HOME_DIR}/.octoprint/config.yaml"
+SCREEN_CONF="/boot/screen.txt"
 
 # Executable
 CMD_OCTO="${HOME_DIR}/oprint/bin/octoprint"
