@@ -85,7 +85,10 @@ if [ -e /usr/lib/xorg/Xorg ]; then
 fi
 
 # Rotation de l'écran du boot
-SCREEN=$(cat ${SCREEN_CONF})
+SCREEN="OBI"
+if [ -e ${SCREEN_CONF} ]; then
+    SCREEN=$(cat ${SCREEN_CONF})
+fi
 if [ "${SCREEN}" == "VEVER" ]; then
     _log "Rotation de l'écran au boot (écran : ${SCREEN})"
     sudo sed -i "s/rootwait/rootwait fbcon=rotate:2/" /boot/cmdline.txt
