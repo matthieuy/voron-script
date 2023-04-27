@@ -38,17 +38,6 @@ if [ $? -ne 0 ]; then
 	exit 2
 fi
 
-# Demande de l'écran
-echo -e "\n\n1°) OBI\n2°) VEVER\nQuel est l'écran ? "
-read SCREEN
-if [ "${SCREEN}" == "1" ] || [ "${SCREEN}" == "2" ]; then
-  echo "${SCREEN}" | sudo tee ${SCREEN_CONF} > /dev/null
-  chmod 755 ${SCREEN_CONF}
-else
-  echo "Ecran non supporté"
-  exit 2
-fi
-
 # Changement du mdp
 if [ "${PI_PASSWORD}" == "${PI_PASSWORD_DEFAULT}" ]; then
 until [ "${PI_PASSWORD}" != "${PI_PASSWORD_DEFAULT}" ]; do
@@ -160,6 +149,7 @@ _config plugins.klipper.configuration.reload_command FIRMWARE_RESTART
 _config plugins.klipper.connection.replace_connection_panel false
 
 # Configurer octoprint
+_log "=> Configuration octoprint de base"
 . ${SCRIPT_DIR}/modules/conf-octoprint.sh
 
 # Splashscreen

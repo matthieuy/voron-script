@@ -84,15 +84,15 @@ if [ -e /usr/lib/xorg/Xorg ]; then
     sudo chmod ug+s /usr/lib/xorg/Xorg
 fi
 
-# Rotation de l'écran du boot
-SCREEN="OBI"
-if [ -e ${SCREEN_CONF} ]; then
-    SCREEN=$(cat ${SCREEN_CONF})
-fi
-if [ "${SCREEN}" == "VEVER" ]; then
-    _log "Rotation de l'écran au boot (écran : ${SCREEN})"
-    sudo sed -i "s/rootwait/rootwait fbcon=rotate:2/" /boot/cmdline.txt
-fi
+# Rotation écran
+_log "=> Rotation de l'écran"
+DISPLAY=:0 xrandr --output HDMI-1 --rotate normal
+DISPLAY=:0 xrandr --output HDMI-2 --rotate inverted
+#sudo sed -i "s/rootwait/rootwait fbcon=rotate:2/" /boot/cmdline.txt
+
+# Rotation touchscreen
+_log "=> Rotation touchscreen"
+sudo sed -i "s/MatchIsTouchscreen \"on\"/MatchIsTouchscreen \"on\"\r\n\tOption \"TransformationMatrix\" \"-1 0 1 0 -1 1 0 0 1\"/g" /usr/share/X11/xorg.conf.d/40-libinput.conf
 
 # Plugins
 _plugins "Plugins" "https://github.com/jneilliii/OctoPrint-OctoDashCompanion/archive/master.zip"
