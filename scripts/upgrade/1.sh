@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Script vierge pour les upgrades (fichier à nommer avec ${VERSION_SCRIPT})
+# Script de test
 
 source /home/pi/voron/modules/_common.sh
 
@@ -18,7 +18,7 @@ if [ '${whoami}' == 'root' ]; then
     #cp -f ${SCRIPT_DIR}/conf/etc/sudoers.d/* /etc/sudoers.d/
     #chmod +x /etc/sudoers.d/*
 
-    #_logUpgrade "Fin de l'upgrade (en root)"
+    _logUpgrade "Fin de l'upgrade (en root)"
     #_logUpgrade "Aucune action root pour cette mise à jour"
 
     # Necessite un reboot
@@ -31,5 +31,5 @@ else
     # Necessite un reboot
     #echo "1 > ${NEED_REBOOT_UPGRADE}
 
-    #_logUpgrade "Fin de l'upgrade (utilisateur standard)"
+    _logUpgrade "Fin de l'upgrade (utilisateur standard)"
 fi
