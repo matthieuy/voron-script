@@ -12,6 +12,11 @@ _log "  => Configuration de l'API"
 API_KEY=$(head -c16 </dev/urandom|xxd -p -u)
 echo -e "${CYAN}  => Génération d'une clé : ${RED}${API_KEY}${NC}"
 
+if [ ! -e ${HOME_DIR}/scripts/.env ]; then
+    cp ${HOME_DIR}/scripts/.env.dist ${HOME_DIR}/scripts/.env
+fi
+sed -i "s/DEFAULT_OCTOPRINT_API_KEY/${API_KEY}/g" ${HOME_DIR}/scripts/.env
+
 _config api.enabled true "Activation"
 _config api.allowCrossOrigin true
 _config api.key ${API_KEY}

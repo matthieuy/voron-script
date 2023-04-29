@@ -3,3 +3,5 @@ conf/rescue-mdp
 old
 out/*
 !out/.gitkeep
+scripts/.env
+scripts/__pycache__

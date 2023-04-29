@@ -148,6 +148,10 @@ _plugins "Klipper" "https://github.com/AliceGrey/OctoprintKlipperPlugin/archive/
 _config plugins.klipper.configuration.reload_command FIRMWARE_RESTART
 _config plugins.klipper.connection.replace_connection_panel false
 
+# Installation pip
+_log "=> Librairies python"
+python3 -m pip install python-environ requests argparse json
+
 # Configurer octoprint
 _log "=> Configuration octoprint de base"
 . ${SCRIPT_DIR}/modules/conf-octoprint.sh
@@ -170,8 +174,7 @@ sleep 5
 # Redémarrage d'octo
 _log "=> Octoprint : redémarrage"
 sudo service octoprint restart
-sleep 30
-# TODO remplacer sleep par script d'attente
+python3 ${SCRIPT_DIR}/scripts/wait-octoprint.py --timeout 45 --interval 1 --debug
 
 # Update octoprint
 . ${SCRIPT_DIR}/scripts/update-octoprint.sh
