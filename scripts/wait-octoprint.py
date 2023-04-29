@@ -54,7 +54,7 @@ while True:
         break
 
 
-if exit_code == 0:
+if exit_code == 0 and args.debug:
     print("[DEBUG] Print is ready : %s" % status)
 sys.exit(exit_code)
 

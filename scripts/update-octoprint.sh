@@ -4,6 +4,9 @@
 #
 source /home/pi/voron/modules/_common.sh
 
+# Attendre que l'octoprint soit prêt
+python3 /home/pi/scripts/wait-octoprint.py --timeout 30 --interval 1
+
 _log "=> Vérification des mises à jour"
 _log "  => Octoprint"
 RESULT=$(${CMD_OCTO} plugins softwareupdate:check --only-new octoprint)
