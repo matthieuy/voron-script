@@ -84,6 +84,7 @@ _add_to_file_if_doesnt_exist "out/config.txt" "dtoverlay=w1-gpio"
 _log "  => Splashscreen"
 sudo sed -i "s/rootwait/rootwait logo.nologo loglevel=1 fbcon=rotate:2/" out/cmdline.txt
 _add_to_file_if_doesnt_exist "out/config.txt" "disable_splash=1"
+cat conf/octodash/boot-config.txt >> out/config.txt
 _log "  => Octodash"
 sudo sed -i "s/#hdmi_force_hotplug=1/hdmi_force_hotplug=1/" out/config.txt
 _log "  => ADXL"

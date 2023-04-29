@@ -1,0 +1,7 @@
+[HDMI:1]
+# settings for exposure screen on HDMI 1
+hdmi_force_hotplug=1
+hdmi_cvt=1024 600 60 3 0 0 0
+hdmi_mode=87
+hdmi_group=2
+display_hdmi_rotate=2
