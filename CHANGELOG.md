@@ -2,9 +2,14 @@ CHANGELOG
 =========
 
 * version actuelle (non versionné pour le moment) :
-  * Test en cours
+  * En cours...
 
 ----------------------------------------------------
+* 2023042900 :
+  * Mise en place du système de MàJ des scripts
+  * Configuration de la rotation de l'écran dès le boot
+  * Script pour faire des appel API
+  * Reboot klipper : Attente de octoprint pour lancer un FIRMWARE_RESTART
 * 2023040100 :
   * Correction de plusieurs bug lors du 1er boot :
     * Compilation Kilpper qui stop le script

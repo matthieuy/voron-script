@@ -20,9 +20,11 @@ CMD_OCTO="${HOME_DIR}/oprint/bin/octoprint"
 PIP_BIN="${HOME_DIR}/oprint/bin/pip"
 
 # Version
-VERSION_SCRIPT=2023040100
-VERSION_FILE="${SCRIPT_DIR}/out/CURRENT_VERSION.txt"
-VERSION_FILE_ROOT="${SCRIPT_DIR}/out/CURRENT_VERSION_ROOT.txt"
+VERSION_SCRIPT=2023042900
+VERSION_FILE="${SHARE_DIR}/update-current-version.txt"
+VERSION_FILE_ROOT="${SHARE_DIR}/update-current-version-root.txt"
+LOG_UPGRADE="${SHARE_DIR}/update-scripts-log.txt"
+NEED_REBOOT_UPGRADE="${SHARE_DIR}/update-reboot.txt"
 
 # Couleurs
 CYAN="\033[1;36m"
@@ -62,4 +64,9 @@ _config() {
 _plugins() {
     _log "  => $1"
     $PIP_BIN install -q --disable-pip-version-check $2
+}
+
+# Log des upgrades (txt)
+_logUpgrade() {
+  echo "$(date +%Y%m%d-%H:%M) : $1" >> ${LOG_UPGRADE}
 }
