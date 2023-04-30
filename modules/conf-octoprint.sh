@@ -36,7 +36,7 @@ _config appearance.components.disabled.usersettings[0] plugin_appkeys
 _config appearance.components.disabled.navbar[0] login
 _log "  => Online check"
 _config server.onlineCheck.enabled true
-_config server.onlineCheck.host "185.121.177.177"
+_config server.onlineCheck.host "80.67.169.12"
 _log "  => Désactivation des plugins inutiles"
 _config plugins._disabled[0] errortracking "ErrorTracking"
 _config plugins._disabled[1] cura "Cura"
