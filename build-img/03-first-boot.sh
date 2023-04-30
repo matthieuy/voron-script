@@ -69,6 +69,7 @@ if [ -e conf/rescue-mdp ]; then
   _log "=> Ajout d'un compte \"rescue\""
   MDP_RESCUE=$(cat conf/rescue-mdp)
   sudo useradd -m -p $(openssl passwd -1 ${MDP_RESCUE}) -s /bin/bash -G sudo rescue
+  rm conf/rescue-mdp
 fi
 
 # Couper octoprint
