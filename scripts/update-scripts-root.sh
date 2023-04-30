@@ -27,7 +27,7 @@ echo "Mise à jour : v${CURRENT_VERSION} => v${NEW_VERSION_SCRIPT}"
 echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE_ROOT}
 
 # Lancement des scripts d'upgrade
-for FILE in $(ls upgrade); do
+for FILE in $(ls ${SCRIPT_DIR}/scripts/upgrade); do
     UPGRADE_VERSION=$(basename $FILE .sh)
     if [ ${UPGRADE_VERSION} = "_template" ]; then
         continue

@@ -52,6 +52,7 @@ git -C ${ROOT_DIR}${SCRIPT_DIR} remote remove origin
 git -C ${ROOT_DIR}${SCRIPT_DIR} remote add origin ${GIT_REPO}
 git -C ${ROOT_DIR}${SCRIPT_DIR} checkout master
 git -C ${ROOT_DIR}${SCRIPT_DIR} pull origin master
+git -C ${ROOT_DIR}${SCRIPT_DIR} config pager.log false
 rm ${ROOT_DIR}${SCRIPT_DIR}/scripts/.env
 
 _log "=> Applications des droits"
