@@ -65,3 +65,5 @@ else
     echo "Mise à jour terminée"
     _logUpgrade "MàJ terminée"
 fi
+
+exit 0

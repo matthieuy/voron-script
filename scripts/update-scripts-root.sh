@@ -46,4 +46,4 @@ echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE_ROOT}
 rm -f ${NEED_REBOOT_UPGRADE}
 _logUpgrade "MàJ root terminée"
 echo "Mise à jour terminée"
-
+exit 0

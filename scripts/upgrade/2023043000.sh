@@ -22,7 +22,7 @@ if [ '${whoami}' == 'root' ]; then
     #_logUpgrade "Aucune action root pour cette mise à jour"
 
     # Necessite un reboot
-    echo "1" > ${NEED_REBOOT_UPGRADE}
+    #echo "1" > ${NEED_REBOOT_UPGRADE}
 else 
 ###################
 # Upgrade en "pi" #
