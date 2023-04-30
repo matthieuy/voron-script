@@ -88,7 +88,6 @@ fi
 _log "=> Rotation de l'écran"
 DISPLAY=:0 xrandr --output HDMI-1 --rotate normal
 DISPLAY=:0 xrandr --output HDMI-2 --rotate inverted
-#sudo sed -i "s/rootwait/rootwait fbcon=rotate:2/" /boot/cmdline.txt
 
 # Rotation touchscreen
 _log "=> Rotation touchscreen"

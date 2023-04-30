@@ -187,4 +187,7 @@ ${CMD_OCTO} plugins backup:backup
 _log "=> Fin de l'installation : Nettoyage"
 sudo apt autoremove -y
 sudo apt clean
+
+# Exit
+_log "Vous pouvez maintenant redémarrer le raspberry avec \"sudo reboot\" puis vous connecter sur http://${HOSTNAME}"
 exit 0

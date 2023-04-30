@@ -13,6 +13,7 @@ source ./modules/_common.sh
 _umount_device
 
 # Montage des partitions
+_log "=> Montage des partitions"
 mkdir -p ${BOOT_DIR}
 mkdir -p ${ROOT_DIR}
 if [[ ${DEVICE} == *"mmcblk"* ]]; then
@@ -58,8 +59,7 @@ cp -rf ${ROOT_DIR}${SCRIPT_DIR}/scripts/* ${ROOT_DIR}${HOME_DIR}/scripts/
 chmod +x ${ROOT_DIR}${HOME_DIR}/scripts/*
 chmod +x ${ROOT_DIR}${SCRIPT_DIR}/modules/*
 chmod +x ${ROOT_DIR}${SCRIPT_DIR}/build-img/*
-rm ${ROOT_DIR}${HOME_DIR}/scripts/.env
-cp ${ROOT_DIR}${HOME_DIR}/scripts/.env.dist ${HOME_DIR}/scripts/.env
+cp -f ${ROOT_DIR}${SCRIPT_DIR}/scripts/.env.dist ${ROOT_DIR}${HOME_DIR}/scripts/.env
 
 
 # Date et heure
