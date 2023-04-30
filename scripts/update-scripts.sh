@@ -32,6 +32,10 @@ NEW_VERSION_SCRIPT=$(cat /home/pi/voron/modules/_common.sh|grep VERSION_SCRIPT|c
 if [ ${CURRENT_VERSION} -ge ${NEW_VERSION_SCRIPT} ]; then
 	echo "Aucune mise à jour disponible"
     _logUpgrade "Check upgrade : Aucune (${CURRENT_VERSION} / ${NEW_VERSION_SCRIPT})"
+    if [ -e ${NEED_REBOOT_UPGRADE} ]; then
+        echo "Un reboot du Rpi est nécessaire !"
+    fi
+
 	exit 0
 fi
 echo "Mise à jour : v${CURRENT_VERSION} => v${NEW_VERSION_SCRIPT}"
