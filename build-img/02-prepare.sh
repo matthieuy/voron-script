@@ -51,12 +51,16 @@ git -C ${ROOT_DIR}${SCRIPT_DIR} remote remove origin
 git -C ${ROOT_DIR}${SCRIPT_DIR} remote add origin ${GIT_REPO}
 git -C ${ROOT_DIR}${SCRIPT_DIR} checkout master
 git -C ${ROOT_DIR}${SCRIPT_DIR} pull origin master
+rm ${ROOT_DIR}${SCRIPT_DIR}/scripts/.env
 
 _log "=> Applications des droits"
 cp -rf ${ROOT_DIR}${SCRIPT_DIR}/scripts/* ${ROOT_DIR}${HOME_DIR}/scripts/
 chmod +x ${ROOT_DIR}${HOME_DIR}/scripts/*
 chmod +x ${ROOT_DIR}${SCRIPT_DIR}/modules/*
 chmod +x ${ROOT_DIR}${SCRIPT_DIR}/build-img/*
+rm ${ROOT_DIR}${HOME_DIR}/scripts/.env
+cp ${ROOT_DIR}${HOME_DIR}/scripts/.env.dist ${HOME_DIR}/scripts/.env
+
 
 # Date et heure
 _log "=> Passage du RPI en Français"

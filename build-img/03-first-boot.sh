@@ -151,7 +151,7 @@ _config plugins.klipper.connection.replace_connection_panel false
 
 # Installation pip
 _log "=> Librairies python"
-python3 -m pip install python-environ requests argparse json
+python3 -m pip install python-environ requests argparse
 
 # Configurer octoprint
 _log "=> Configuration octoprint de base"

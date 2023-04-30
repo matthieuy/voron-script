@@ -18,14 +18,6 @@ TODO
         * [ ] Script de mise à jour auto
     * [ ] Rajouter le script https://github.com/KiloQubit/probe_accuracy
 * [ ] Scripts :
-* [ ] Màj :
-    * [ ] Script pour octodash
-    * [ ] Script pour octoprint :
-        * [ ] A refaire en python pour vérifier l'état d'octoprint (ready) avant
-    * [ ] Script pour mettre à jour les scripts git custom :
-        * [ ] En utilisateur "pi"
-        * [ ] En root lors du boot
-        * [ ] Fichier dans le partage pour savoir la version actuelle
 * [ ] Divers :
     * [ ] Compiler image pour réinstallation direct :
         * [ ] Redimenssionner les partitions
