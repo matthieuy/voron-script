@@ -1,15 +1,15 @@
-Accéléromètre
-=============
+Input shaper (via un accéléromètre)
+===================================
 
-Voici un tuto pour utiliser l'accéléromètre sur klipper.
+Voici un tuto pour utiliser l'accéléromètre et configurer les fonctionnalités de l'input shaper de klipper.
 
 ## Sommaire
 
 * [Pré-requis](#pré-requis)
 * [Principe](#principe)
-* [Préparer l'input shaper](#préparer-linput-shaper)
-    * [Compiler klipper pour l'input shaper](#compiler-klipper-pour-linput-shaper)
-    * [Flasher l'input shaper](#flasher-linput-shaper)
+* [Préparer la board portable input shaper (PIS)](#préparer-la-board-portable-input-shaper-pis)
+    * [Compiler klipper pour la PIS](#compiler-klipper-pour-la-pis)
+    * [Flasher la PIS](#flasher-la-pis)
 * [Configuration de klipper (de l'imprimante)](#configuration-de-klipper-de-limprimante)
     * [Trouver la board](#trouver-la-board)
     * [Modifier la configuration klipper](#modifier-la-configuration-klipper)
@@ -23,28 +23,29 @@ Voici un tuto pour utiliser l'accéléromètre sur klipper.
 
 ## Pré-requis
 
-Pour optimiser les vitesses via l'accéléromètre, il faut :
+Pour optimiser les vitesses via l'input shaper, il faut :
 * Klipper (à jour de préférence)
 * La board "portable input shaper" (PIS)
-* Un câble USB-c => USB type A
+* Un câble USB type C mâle => USB type A mâle
 * Un accès SSH sur le RPI
+* La configuration "pressure advance" dans klipper doit être désactivée (le pressure advance doit être fait après l'input shaper)
 
 
 ## Principe
 
-Nous allons flasher la board input shaper avec klipper, configurer klipper de l'imprimante pour se connecter sur le klipper du PCB puis lancer les tests de résonances.  
+Nous allons flasher la board PIS avec klipper, configurer klipper de l'imprimante pour se connecter sur le klipper du PCB puis lancer les tests de résonances.  
 Une fois les résultats obtenus, nous optimiserons les vitesses d'accélérations de l'imprimante.
 
 
 
-## Préparer l'input shaper
+## Préparer la board portable input shaper (PIS)
 
-### Compiler klipper pour l'input shaper
+### Compiler klipper pour la PIS
 
-**ATTENTION** : Il faut avoir la même version du firmware klipper sur votre imprimante et sur l'input shaper.
+**ATTENTION** : Il faut avoir la même version du firmware klipper sur votre imprimante et sur la board PIS.
 
 
-Avant de compiler klipper pour l'input shaper, il est préférable de faire un backup de la configuration de compilation de l'imprimante :
+Avant de compiler klipper pour la board PIS, il est préférable de faire un backup de la configuration de compilation de l'imprimante :
 ```bash
 cd ~/klipper
 cp .config .config.bak
@@ -67,17 +68,17 @@ make
 
 Une fois la compilation terminée, nous pouvons remettre la configuration de l'imprimante (sauvegardé plus haut) :
 ```bash
-cp .config.bak .config
+mv .config.bak .config
 ```
 
 Il faut maintenant récupéré le binaire compilé `~/klipper/out/klipper.uf2` sur son PC via SCP ou tout autre moyens (ex sur octoprint en le déplaçant dans `~/.octoprint/uploads`).
 
 
-### Flasher l'input shaper
+### Flasher la PIS
 
 Pour brancher la board en mode flashboot :
 * Brancher le câble USB-C sur le PCB
-* Laisser le doigt appuyer sur le bouton présent sur l'input shaper
+* Laisser le doigt appuyer sur le bouton présent sur la board PIS
 * Brancher l'autre extrémité du câble USB (type A) sur votre PC
 * Relâcher le bouton
 
@@ -91,7 +92,7 @@ Il ne reste qu'à copier le fichier `klipper.uf2` sur ce périphérique. Après 
 
 ### Trouver la board
 
-Branchez l'input shaper en USB sur le RPI.
+Branchez la board en USB sur le RPI.
 En ligne de commande (via SSH), trouvez le chemin de la board RP2040 :
 ```bash
 ls -l /dev/serial/by-id/
@@ -102,6 +103,7 @@ ls -l /dev/serial/by-path/
 ```
 
 Notez bien le chemin complet de la board.
+
 
 ### Modifier la configuration klipper
 
@@ -120,19 +122,19 @@ axes_map: x,-z,y
 [resonance_tester]
 accel_chip: adxl345
 probe_points:
-    175,175,30
+    175,175,20
 ```
 
 Modifiez les valeurs suivantes :
 * `serial` avec le chemin de la board trouvé juste avant
-* `probe_points` : pour être au milieu de votre zone d'impression (ici un bed de 350x350) et à environ 3cm en Z
+* `probe_points` : pour être au milieu de votre zone d'impression (ici un bed de 350x350) et à environ 2cm en Z
 
 
 Dans votre fichier de configuration klipper, rajoutez la ligne suivante pour importer ce fichier :
 ```yaml
 [include ~/PIS.cfg]
 ```
-Il faudra bien pensez à la commenter une fois la board input shaper débranchée.
+Il faudra bien penser à la commenter une fois la board PIS débranchée.
 
 
 
@@ -221,6 +223,12 @@ En SSH, nous installons les outils pour générer les graphs :
 sudo apt update
 sudo apt install python3-numpy python3-matplotlib libatlas-base-dev
 ~/klippy-env/bin/pip install -v numpy
+```
+
+Lancez les gcodes suivants :
+```
+TEST_RESONANCES AXIS=X
+TEST_RESONANCES AXIS=Y
 ```
 
 Puis lancer les scripts :
