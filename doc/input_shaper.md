@@ -20,10 +20,13 @@ Voici un tuto pour utiliser l'accéléromètre et configurer les fonctionnalité
 * [Obtenir des graphs de la résonance](#obtenir-des-graphs-de-la-résonance)
 
 
+----------------------------------------------------------------------------------------------------
+
+
 
 ## Pré-requis
 
-Pour optimiser les vitesses via l'input shaper, il faut :
+Pour optimiser les vitesses et réduire le ghosting via l'input shaper, il faut :
 * Klipper (à jour de préférence)
 * La board "portable input shaper" (PIS)
 * Un câble USB type C mâle => USB type A mâle
@@ -34,7 +37,7 @@ Pour optimiser les vitesses via l'input shaper, il faut :
 ## Principe
 
 Nous allons flasher la board PIS avec klipper, configurer klipper de l'imprimante pour se connecter sur le klipper du PCB puis lancer les tests de résonances.  
-Une fois les résultats obtenus, nous optimiserons les vitesses d'accélérations de l'imprimante.
+Une fois les résultats obtenus, nous optimiserons les vitesses d'accélérations de l'imprimante et l'input shaper.
 
 
 
@@ -51,11 +54,11 @@ cd ~/klipper
 cp .config .config.bak
 ```
 
-On prépare la configuration de compilation :
+Nous préparons la configuration de compilation :
 ```bash
 make menuconfig
 ```
-Modifier la configuration comme ceci :
+Modifiez la configuration comme ceci :
 * Micro-controller Architecture => Raspberry Pi RP2040
 * Communication interface => USB
 
@@ -66,24 +69,28 @@ Nous pouvons lancer la compilation :
 make
 ```
 
-Une fois la compilation terminée, nous pouvons remettre la configuration de l'imprimante (sauvegardé plus haut) :
+Une fois la compilation terminée, il faut maintenant récupérer le binaire compilé `~/klipper/out/klipper.uf2` sur son PC via SCP ou tout autre moyens (ex sur octoprint en le déplaçant dans `~/.octoprint/uploads`).
+
+
+Après ces opérations, il est préférable de remettre la configuration de l'imprimante (sauvegardé plus haut) et recompiler :
 ```bash
 mv .config.bak .config
+make clean
+make
 ```
 
-Il faut maintenant récupéré le binaire compilé `~/klipper/out/klipper.uf2` sur son PC via SCP ou tout autre moyens (ex sur octoprint en le déplaçant dans `~/.octoprint/uploads`).
 
 
 ### Flasher la PIS
 
-Pour brancher la board en mode flashboot :
-* Brancher le câble USB-C sur le PCB
+Pour brancher la board en mode flashboot, il faut :
+* Brancher le câble USB-C sur la PIS
 * Laisser le doigt appuyer sur le bouton présent sur la board PIS
 * Brancher l'autre extrémité du câble USB (type A) sur votre PC
 * Relâcher le bouton
 
 Normalement le PC détecte un nouveau périphérique de type clé USB (nommé `RPI-RP2`).  
-Il ne reste qu'à copier le fichier `klipper.uf2` sur ce périphérique. Après quelques secondes, la board reboot.
+Il ne reste qu'à copier le fichier `klipper.uf2` sur ce périphérique. Après quelques secondes/minutes, le périphérique USB est automatiquement éjecté, c'est que le flash est terminé.
 
 
 
@@ -158,7 +165,7 @@ SHAPER_CALIBRATE AXIS=X
 ```
 Le test dure environ une minute. Notez les résultats dans un fichier texte pour les analyser après.
 
-Vous pouvez relancer pour l'axe Y :
+Même procédure pour l'axe Y :
 ```
 SHAPER_CALIBRATE AXIS=Y
 ```
@@ -231,7 +238,7 @@ TEST_RESONANCES AXIS=X
 TEST_RESONANCES AXIS=Y
 ```
 
-Puis lancer les scripts :
+Puis lancez les scripts :
 ```bash
 ~/klipper/scripts/calibrate_shaper.py /tmp/resonances_x_*.csv -o /tmp/shaper_calibrate_x.png
 ~/klipper/scripts/calibrate_shaper.py /tmp/resonances_y_*.csv -o /tmp/shaper_calibrate_y.png
@@ -243,4 +250,5 @@ Exemple sur octoprint :
 cp /tmp/shaper_calibrate_* ~/.octoprint/uploads/
 ```
 
-Des graphs avec une grosse résonnance sur toute la durée du test sont souvent synonyme d'un problème de tension de courroie.
+Des graphs avec une grosse résonnance sur toute la durée du test sont souvent synonyme d'un problème de tension de courroie.  
+Il est conseillé de relancer un test de résonance après un upgrade matériel de l'imprimante

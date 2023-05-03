@@ -36,10 +36,14 @@ Voici les dossiers essentiels dans ce dépot :
 * `{DEPOT}/conf/octopi-wpa-supplicant.txt` : Fichier Wifi a appliquer lors de la création d'une image octoprint
 * `/home/pi/klipper` : Source de klipper
 * `/home/pi/.octoprint/uploads/system` : Dossier partagé (et synchro)
-  * `klipper.bin` : Le firmware compilé à flasher
-  * `klipper-makeconfig.txt` : Le fichier de configuration de compilation de Klipper
+  * `firmware.bin` : Le firmware klipper compilé à flasher (via les cartes microSD)
   * `klipper-macro.txt` : Les macros custom de klipper
+  * `klipper-makeconfig.txt` : Le fichier de configuration de compilation de Klipper
+  * `klipper-static.txt` : La configuration fixe de klipper
   * `octodash-theme.txt` : Le theme CSS de dashboard
   * `splashscreen.png` : Le splashscreen lors du boot
-
+  * `update-current-version-root.txt` : La version actuelle des upgrades (pour l'utilisateur root)
+  * `update-current-version.txt` : La version actuelle des upgrades (pour l'utilisateur standard)
+  * `update-scripts-log.txt` : Les logs des scripts de MàJ
+  * `variables.txt` : Les variables dynamiques de klipper
   
