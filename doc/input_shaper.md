@@ -36,8 +36,9 @@ Pour optimiser les vitesses et réduire le ghosting via l'input shaper, il faut 
 
 ## Principe
 
-Nous allons flasher la board PIS avec klipper, configurer klipper de l'imprimante pour se connecter sur le klipper du PCB puis lancer les tests de résonances.  
-Une fois les résultats obtenus, nous optimiserons les vitesses d'accélérations de l'imprimante et l'input shaper.
+Nous allons flasher la board PIS avec klipper. Cette board contient le même chipset qu'un RPI (RP2040).  
+Nous allons ensuite configurer klipper de l'imprimante pour se connecter sur le klipper du PCB puis lancer les tests de résonances.  
+Une fois les résultats obtenus, nous optimiserons les vitesses d'accélérations de l'imprimante et l'input shaper (compensation de résonance).
 
 
 
@@ -154,7 +155,7 @@ Il faudra bien penser à la commenter une fois la board PIS débranchée.
 Fixez la board sur la tête.  
 Elle ne doit surtout pas vibrer et être vraiment solidaire de la tête.
 
-Faites un homing complet :
+Faites un homing complet (un gantry ou bed leveling précis n'est pas nécessaire) :
 ```
 G28
 ```
@@ -197,14 +198,14 @@ Et voici comme l'analyser :
 
 Dans la configuration klipper, vous pouvez modifier l'accélération de l'imprimante (variable `max_accel` de la section `[printer]`).  
 **Attention** : il faut prendre la valeur la plus basse entre les résultats du X et du Y !  
-Exemple : Si X=4000 et Y=6500, la valeur de `max_accel` sera de 4000.
+Exemple : Si X=6500 et Y=3500, la valeur de `max_accel` sera de `3500`.
 
 ```
 [printer]
-max_accel: 4000
+max_accel: 3500
 ```
 
-Pour les fréquences et l'algo, normalement un `SAVE_CONFIG` après les tests devrait le rajouter dans la partie dynamique de klipper (tout en bas, sous le `SAVE_CONFIG`) mais vous pouvez le rajouter manuellement :
+Pour les fréquences et l'algo, normalement un `SAVE_CONFIG` après les tests devrait le rajouter dans la partie dynamique de klipper (tout en bas, sous le `SAVE_CONFIG` et en commentaire) mais vous pouvez le rajouter manuellement :
 
 Exemple (avec l'algo et la fréquence pour l'axe X et Y) :
 ```yaml
@@ -232,13 +233,15 @@ sudo apt install python3-numpy python3-matplotlib libatlas-base-dev
 ~/klippy-env/bin/pip install -v numpy
 ```
 
-Lancez les gcodes suivants :
+Faites un home complet sur l'imprimante via le gcode "`G28`" (pas besoin de gantry, chauffe,...).
+
+Lancez les gcodes/macros suivants :
 ```
 TEST_RESONANCES AXIS=X
 TEST_RESONANCES AXIS=Y
 ```
 
-Puis lancez les scripts :
+Puis lancez les scripts (en SSH) :
 ```bash
 ~/klipper/scripts/calibrate_shaper.py /tmp/resonances_x_*.csv -o /tmp/shaper_calibrate_x.png
 ~/klipper/scripts/calibrate_shaper.py /tmp/resonances_y_*.csv -o /tmp/shaper_calibrate_y.png
@@ -251,4 +254,4 @@ cp /tmp/shaper_calibrate_* ~/.octoprint/uploads/
 ```
 
 Des graphs avec une grosse résonnance sur toute la durée du test sont souvent synonyme d'un problème de tension de courroie.  
-Il est conseillé de relancer un test de résonance après un upgrade matériel de l'imprimante
+Il est conseillé de relancer un test de résonance après chaque upgrade matériel de l'imprimante.
