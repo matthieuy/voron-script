@@ -31,7 +31,7 @@ chmod +x ${SCRIPT_DIR}/scripts/upgrade/*
 NEW_VERSION_SCRIPT=$(cat /home/pi/voron/modules/_common.sh|grep VERSION_SCRIPT|cut -d= -f2)
 if [ ${CURRENT_VERSION} -ge ${NEW_VERSION_SCRIPT} ]; then
 	echo "Aucune mise à jour disponible"
-    _logUpgrade "Check upgrade : Aucune (${CURRENT_VERSION} / ${NEW_VERSION_SCRIPT})"
+    _logUpgrade "[global] Check upgrade : Aucune (${CURRENT_VERSION} / ${NEW_VERSION_SCRIPT})"
     if [ -e ${NEED_REBOOT_UPGRADE} ]; then
         echo "Un reboot du Rpi est nécessaire !"
     fi
@@ -39,8 +39,7 @@ if [ ${CURRENT_VERSION} -ge ${NEW_VERSION_SCRIPT} ]; then
 	exit 0
 fi
 echo "Mise à jour : v${CURRENT_VERSION} => v${NEW_VERSION_SCRIPT}"
-echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE}
-_logUpgrade "Check upgrade : Dispo :${CURRENT_VERSION} => ${NEW_VERSION_SCRIPT}"
+_logUpgrade "[global] Check upgrade : Dispo :${CURRENT_VERSION} => ${NEW_VERSION_SCRIPT}"
 
 # Lancement des scripts d'upgrade
 for FILE in $(ls ${SCRIPT_DIR}/scripts/upgrade); do
@@ -51,7 +50,7 @@ for FILE in $(ls ${SCRIPT_DIR}/scripts/upgrade); do
     if [ ${UPGRADE_VERSION} -ge ${CURRENT_VERSION} ]; then
         UPGRADE_SCRIPT="${SCRIPT_DIR}/scripts/upgrade/${UPGRADE_VERSION}.sh"
 		echo "  => Lancement script v${UPGRADE_VERSION}"
-        _logUpgrade "Lancement du script ${UPGRADE_SCRIPT} en utilisateur standard"
+        _logUpgrade "[user] Lancement du script ${UPGRADE_SCRIPT}"
         bash ${UPGRADE_SCRIPT}
     fi
 done
@@ -60,10 +59,10 @@ done
 echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE}
 if [ -e ${NEED_REBOOT_UPGRADE} ]; then
     echo "Mise à jour terminée : un reboot du Rpi est nécessaire !"
-    _logUpgrade "MàJ terminée : reboot nécessaire"
+    _logUpgrade "[user] MàJ terminée : reboot nécessaire"
 else
     echo "Mise à jour terminée"
-    _logUpgrade "MàJ terminée"
+    _logUpgrade "[user] MàJ terminée"
 fi
 
 exit 0

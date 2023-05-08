@@ -24,7 +24,7 @@ if [ ${CURRENT_VERSION} -ge ${NEW_VERSION_SCRIPT} ]; then
 	exit 0
 fi
 echo "Mise à jour : v${CURRENT_VERSION} => v${NEW_VERSION_SCRIPT}"
-echo ${NEW_VERSION_SCRIPT} > ${VERSION_FILE_ROOT}
+_logUpgrade "[root] Mise à jour : v${CURRENT_VERSION} => v${NEW_VERSION_SCRIPT}"
 
 # Lancement des scripts d'upgrade
 for FILE in $(ls ${SCRIPT_DIR}/scripts/upgrade); do
@@ -35,7 +35,7 @@ for FILE in $(ls ${SCRIPT_DIR}/scripts/upgrade); do
     if [ ${UPGRADE_VERSION} -ge ${CURRENT_VERSION} ]; then
 		echo "  => Lancement script v${UPGRADE_VERSION}"
         UPGRADE_SCRIPT="${SCRIPT_DIR}/scripts/upgrade/${UPGRADE_VERSION}.sh"
-        _logUpgrade "Lancement du script ${UPGRADE_SCRIPT} en utilisateur root"
+        _logUpgrade "[root] Lancement du script ${UPGRADE_SCRIPT}"
         bash ${UPGRADE_SCRIPT}
     fi
 done

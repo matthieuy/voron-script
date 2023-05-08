@@ -20,7 +20,7 @@ CMD_OCTO="${HOME_DIR}/oprint/bin/octoprint"
 PIP_BIN="${HOME_DIR}/oprint/bin/pip"
 
 # Version
-VERSION_SCRIPT=2023043000
+VERSION_SCRIPT=2023050800
 VERSION_FILE="${SHARE_DIR}/update-current-version.txt"
 VERSION_FILE_ROOT="${SHARE_DIR}/update-current-version-root.txt"
 LOG_UPGRADE="${SHARE_DIR}/update-scripts-log.txt"
