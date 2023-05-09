@@ -148,6 +148,7 @@ git -C ${KLIPPER_DIR} config pull.rebase false
 _plugins "Klipper" "https://github.com/AliceGrey/OctoprintKlipperPlugin/archive/master.zip"
 _config plugins.klipper.configuration.reload_command FIRMWARE_RESTART
 _config plugins.klipper.connection.replace_connection_panel false
+cp -f ${SCRIPT_DIR}/conf/klipper/PIS.cfg ${HOME_DIR}/PIS.cfg
 
 # Installation pip
 _log "=> Librairies python"
