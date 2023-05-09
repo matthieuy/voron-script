@@ -8,7 +8,7 @@ Voici un tuto pour utiliser l'accéléromètre et configurer les fonctionnalité
 * [Pré-requis](#pré-requis)
 * [Principe](#principe)
 * [Préparer la board portable input shaper (PIS)](#préparer-la-board-portable-input-shaper-pis)
-    * [Compiler klipper pour la PIS](#compiler-klipper-pour-la-pis)
+    * [Compiler klipper sur la PIS](#compiler-klipper-sur-la-pis)
     * [Flasher la PIS](#flasher-la-pis)
 * [Configuration de klipper (de l'imprimante)](#configuration-de-klipper-de-limprimante)
     * [Trouver la board](#trouver-la-board)
@@ -44,9 +44,7 @@ Une fois les résultats obtenus, nous optimiserons les vitesses d'accélération
 
 ## Préparer la board portable input shaper (PIS)
 
-### Compiler klipper pour la PIS
-
-**ATTENTION** : Il faut avoir la même version du firmware klipper sur votre imprimante et sur la board PIS.
+### Compiler klipper sur la PIS
 
 
 Avant de compiler klipper pour la board PIS, il est préférable de faire un backup de la configuration de compilation de l'imprimante :
@@ -210,7 +208,7 @@ Exemple : Si X=6500 et Y=3500, la valeur de `max_accel` sera de `3500`.
 max_accel: 3500
 ```
 
-Pour les fréquences et l'algo, normalement un `SAVE_CONFIG` après les tests devrait le rajouter dans la partie dynamique de klipper (tout en bas, sous le `SAVE_CONFIG` et en commentaire) mais vous pouvez le rajouter manuellement :
+Pour les fréquences et l'algo, normalement un `SAVE_CONFIG` après les tests devrait le rajouter dans la partie dynamique de klipper (tout en bas, sous la section `SAVE_CONFIG` et en commentaire) mais vous pouvez le rajouter manuellement :
 
 Exemple (avec l'algo et la fréquence pour l'axe X et Y) :
 ```yaml
