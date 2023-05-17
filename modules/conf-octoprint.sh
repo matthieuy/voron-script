@@ -15,7 +15,7 @@ echo -e "${CYAN}  => Génération d'une clé : ${RED}${API_KEY}${NC}"
 if [ -e ${HOME_DIR}/scripts/.env ]; then
     rm -f ${HOME_DIR}/scripts/.env
 fi
-cp ${HOME_DIR}/scripts/.env.dist ${HOME_DIR}/scripts/.env
+cp ${SCRIPT_DIR}/scripts/.env.dist ${HOME_DIR}/scripts/.env
 sed -i "s/DEFAULT_OCTOPRINT_API_KEY/${API_KEY}/g" ${HOME_DIR}/scripts/.env
 
 _config api.enabled true "Activation"

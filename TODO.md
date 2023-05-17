@@ -37,3 +37,10 @@ ADXL :
 E: Package 'python-numpy' has no installation candidate
 E: Package 'python-matplotlib' has no installation candidate
 ```
+
+```
+  => Génération d'une clé : XXXX
+cp: cannot stat '/home/pi/scripts/.env.dist': No such file or directory
+sed: can't read /home/pi/scripts/.env: No such file or directory
+  => Activation
+=> Configuration octoprint
