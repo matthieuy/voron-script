@@ -37,12 +37,17 @@ Pour optimiser les vitesses et réduire le ghosting via l'input shaper, il faut 
 ## Principe
 
 Nous allons compiler puis flasher la board PIS avec klipper. Cette board contient le même chipset qu'un RPI (RP2040).  
+Cette opération est à faire qu'une fois. Il n'est pas nécessaire de recompiler/flasher à chaque mise à jour klipper de l'imprimante.  
+
 Nous allons ensuite configurer klipper de l'imprimante pour se connecter sur le klipper du PCB puis lancer les tests de résonances.  
 Une fois les résultats obtenus, nous optimiserons les vitesses d'accélérations de l'imprimante et l'input shaper (compensation de résonance).
 
 
 
 ## Préparer la board portable input shaper (PIS)
+
+Une fois de plus, ces opérations ne sont pas nécessaires si klipper est déjà flashé sur la board PIS.
+
 
 ### Compiler klipper sur la PIS
 
@@ -95,6 +100,19 @@ Il ne reste qu'à copier le fichier `klipper.uf2` sur ce périphérique. Après 
 
 
 ## Configuration de klipper (de l'imprimante)
+
+### Installation du module pour klipper
+
+En SSH, nous allons déjà installer les outils nécessaires (principalement pour faire les graphs) :
+```bash
+sudo apt update
+sudo apt install python3-numpy python3-matplotlib libatlas-base-dev
+~/klippy-env/bin/pip install -v numpy
+```
+
+La compilation de numpy prend quelques minutes (ne faites pas attention aux éventuelles warnings).
+
+
 
 ### Trouver la board
 
@@ -164,7 +182,7 @@ Nous pouvons lancer le test pour l'axe X avec le gcode suivant :
 ```
 SHAPER_CALIBRATE AXIS=X
 ```
-Le test dure environ une minute. Notez les résultats dans un fichier texte pour les analyser après.
+Le test dure 2 à 3 minutes (toutes les fréquences de 5 à 133Mhz). Notez les résultats dans un fichier texte pour les analyser après.
 
 Même procédure pour l'axe Y (pour une cartésienne, fixez le PIS sur le bed avec du scotch) :
 ```
@@ -201,7 +219,7 @@ Et voici comme l'analyser :
 
 Dans la configuration klipper, vous pouvez modifier l'accélération de l'imprimante (variable `max_accel` de la section `[printer]`).  
 **Attention** : il faut prendre la valeur la plus basse entre les résultats du X et du Y !  
-Exemple : Si X=6500 et Y=3500, la valeur de `max_accel` sera de `3500`.
+Exemple : Si X=6500mm/sec^2 et Y=3500mm/sec^2, la valeur de `max_accel` sera de `3500`.
 
 ```
 [printer]
@@ -219,7 +237,7 @@ shaper_freq_y: 47.5
 shaper_type_y: ei
 ```
 
-La configuration est terminée. Pensez à remettre la configuration de l'accéléromètre en commentaire puis sauvegardez :
+La configuration est terminée. Pensez à remettre la configuration de l'accéléromètre en commentaire à la fin puis sauvegardez :
 ```yaml
 #[include /home/pi/PIS.cfg]
 ```
@@ -228,15 +246,6 @@ La configuration est terminée. Pensez à remettre la configuration de l'accél�
 ## Obtenir des graphs de la résonance
 
 Cette partie est optionnelle.
-
-En SSH, nous installons les outils pour générer les graphs :
-```bash
-sudo apt update
-sudo apt install python3-numpy python3-matplotlib libatlas-base-dev
-~/klippy-env/bin/pip install -v numpy
-```
-La compilation prend quelques minutes (ne faites pas attention aux éventuelles warnings).
-
 
 Faites un home complet sur l'imprimante via le gcode `G28` (pas besoin de gantry, chauffe,...).
 
@@ -252,7 +261,7 @@ Puis lancez les scripts (en SSH) :
 ~/klipper/scripts/calibrate_shaper.py /tmp/resonances_y_*.csv -o /tmp/shaper_calibrate_y.png
 ```
 
-Reste à récupérer les images (en SCP dans le dossier `/tmp`) ou les copier dans un dossier récupérable via l'interface Web.  
+Reste à récupérer les images PNG (en SCP dans le dossier `/tmp`) ou les copier dans un dossier récupérable via l'interface Web.  
 Exemple sur octoprint :
 ```bash
 cp /tmp/shaper_calibrate_* ~/.octoprint/uploads/
