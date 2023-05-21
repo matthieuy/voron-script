@@ -221,7 +221,7 @@ Dans la configuration klipper, vous pouvez modifier l'accélération de l'imprim
 **Attention** : il faut prendre la valeur la plus basse entre les résultats du X et du Y !  
 Exemple : Si X=6500mm/sec^2 et Y=3500mm/sec^2, la valeur de `max_accel` sera de `3500`.
 
-```
+```yaml
 [printer]
 max_accel: 3500
 ```
