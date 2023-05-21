@@ -138,7 +138,7 @@ Modifiez les valeurs suivantes :
 
 Dans votre fichier de configuration klipper, rajoutez la ligne suivante pour importer ce fichier :
 ```yaml
-[include ~/PIS.cfg]
+[include /home/pi/PIS.cfg]
 ```
 Il faudra bien penser à la commenter une fois la board PIS débranchée.
 
@@ -221,7 +221,7 @@ shaper_type_y: ei
 
 La configuration est terminée. Pensez à remettre la configuration de l'accéléromètre en commentaire puis sauvegardez :
 ```yaml
-#[include ~/PIS.cfg]
+#[include /home/pi/PIS.cfg]
 ```
 
 
