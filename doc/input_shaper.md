@@ -28,7 +28,7 @@ Voici un tuto pour utiliser l'accéléromètre et configurer les fonctionnalité
 
 Pour optimiser les vitesses et réduire le ghosting via l'input shaper, il faut :
 * Klipper (à jour de préférence)
-* La board "portable input shaper" (PIS)
+* La board PIS "portable input shaper" ([lien AliExpress](https://fr.aliexpress.com/item/1005005101353169.html))
 * Un câble USB type A mâle (côté Rpi et PC) => USB type C mâle (côté PIS)
 * Un accès SSH sur le RPI
 * La configuration "pressure advance" dans klipper doit être désactivée (le pressure advance doit être fait après l'input shaper)
