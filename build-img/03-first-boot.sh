@@ -130,6 +130,7 @@ rm -rf ~/wiringpi
 # Oh my ZSH
 _log "=> Oh my ZSH"
 sudo chsh -s /usr/bin/zsh $(whoami)
+zstyle ':omz:update' mode auto
 
 # Led IDE
 _log "=> LED IDE"
