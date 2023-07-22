@@ -28,6 +28,8 @@ TODO
     * [ ] Compléter la doc
 
 
+klipper-static.txt manquant
+cp klipper-static.txt ~/.octoprint/uploads/system
 
 Bug first boot
 ==============

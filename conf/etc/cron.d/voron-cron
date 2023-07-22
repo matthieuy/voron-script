@@ -7,7 +7,7 @@
 @reboot pi bash /home/pi/scripts/gpio-init.sh
 
 # Btn RPI
-@reboot pi python /home/pi/scripts/btn-rpi.py &
+@reboot pi python3 /home/pi/scripts/btn-rpi.py &
 
 # Check des LEDs
 @reboot pi bash /home/pi/scripts/test-led.sh boot &
