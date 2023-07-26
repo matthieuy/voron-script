@@ -111,6 +111,9 @@ sudo apt --fix-broken install -y
 _log "=> Installation de paquets de base"
 sudo apt install -y tree zsh autojump fbi rsync hdparm sysbench ncdu python3-rpi.gpio
 
+# Création du dossier de share
+mkdir -p ${SHARE_DIR}
+
 # Node
 _log "NodeJS"
 curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash -
