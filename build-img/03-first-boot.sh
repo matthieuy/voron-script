@@ -153,6 +153,7 @@ _plugins "Klipper" "https://github.com/AliceGrey/OctoprintKlipperPlugin/archive/
 _config plugins.klipper.configuration.reload_command FIRMWARE_RESTART
 _config plugins.klipper.connection.replace_connection_panel false
 cp -f ${SCRIPT_DIR}/conf/klipper/PIS.cfg ${HOME_DIR}/PIS.cfg
+cp -f ${SCRIPT_DIR}/conf/klipper/klipper-static.txt ${SHARE_DIR}/klipper-static.txt
 
 # Installation pip
 _log "=> Librairies python"

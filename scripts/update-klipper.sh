@@ -15,7 +15,7 @@ fi
 echo "Compilation en cours" > ${KLIPPER_PID}
 
 # Pull
-git pull
+git pull ${KLIPPER_VERSION}
 
 # Install
 ./scripts/install-octopi.sh

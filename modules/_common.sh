@@ -25,6 +25,7 @@ VERSION_FILE="${SHARE_DIR}/update-current-version.txt"
 VERSION_FILE_ROOT="${SHARE_DIR}/update-current-version-root.txt"
 LOG_UPGRADE="${SHARE_DIR}/update-scripts-log.txt"
 NEED_REBOOT_UPGRADE="${SHARE_DIR}/update-reboot.txt"
+KLIPPER_VERSION="0539e9f2666839d9adeecdfcf492a45a0d3aac1a"
 
 # Couleurs
 CYAN="\033[1;36m"
