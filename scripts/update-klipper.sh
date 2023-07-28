@@ -10,12 +10,14 @@ cd ${KLIPPER_DIR}
 KLIPPER_PID=${SHARE_DIR}/klipper-encours.txt
 if [ -e ${KLIPPER_PID} ]; then
   echo "Compilation Klipper déjà en cours..."
-  exit 2
+  exit
 fi
 echo "Compilation en cours" > ${KLIPPER_PID}
 
 # Pull
-git pull ${KLIPPER_VERSION}
+git checkout master
+git pull
+git checkout ${KLIPPER_VERSION}
 
 # Install
 ./scripts/install-octopi.sh

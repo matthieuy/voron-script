@@ -132,8 +132,14 @@ rm -rf ~/wiringpi
 
 # Oh my ZSH
 _log "=> Oh my ZSH"
+_log "  => $(whoami)"
 sudo chsh -s /usr/bin/zsh $(whoami)
-zstyle ':omz:update' mode auto
+/usr/bin/zsh -c "zstyle ':omz:update' mode auto"
+_log "  => root"
+sudo cp -Rfv ${HOME_DIR}/.oh-my-zsh /root/.oh-my-zsh
+sudo cp ${HOME_DIR}/.zshrc /root/.zshrc
+sudo chsh -s /usr/bin/zsh root
+sudo /usr/bin/zsh -c "zstyle ':omz:update' mode auto"
 
 # Led IDE
 _log "=> LED IDE"
@@ -176,7 +182,7 @@ sudo systemctl enable splashscreen
 sleep 5
 
 # ADXL
-#. ${SCRIPT_DIR}/modules/adxl.sh
+. ${SCRIPT_DIR}/modules/adxl.sh
 
 # Redémarrage d'octo
 _log "=> Octoprint : redémarrage"
